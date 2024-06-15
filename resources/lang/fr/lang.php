@@ -1296,4 +1296,7 @@
   'Loading...' => 'Chargement...',
   'With flexible schedules and a user-friendly platform  you can earn money with every ride. Become a DriveMond today!' => 'Avec des horaires flexibles et une plateforme conviviale, vous pouvez gagner de l\'argent à chaque trajet. Devenez un DriveMond aujourd\'hui!',
   'Earn Money with' => 'Gagnez de l\'argent avec',
+  'Server key should have enable place api key and you can restrict it with ip' => 'Server key should have enable place api key and you can restrict it with ip',
+  'Client key should have enable map javascript api and you can restrict it with http refer' => 'Client key should have enable map javascript api and you can restrict it with http refer',
+  'no_vehicle_category_available_for_this_zone' => 'No vehicle category available for this zone',
 );

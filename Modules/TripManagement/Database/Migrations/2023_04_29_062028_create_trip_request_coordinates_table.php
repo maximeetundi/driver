@@ -16,21 +16,21 @@ class CreateTripRequestCoordinatesTable extends Migration
         Schema::create('trip_request_coordinates', function (Blueprint $table) {
             $table->id();
             $table->foreignUuid('trip_request_id');
-            $table->geography('pickup_coordinates', 'point')->nullable();
+            $table->geometry('pickup_coordinates')->nullable();
             $table->string('pickup_address')->nullable();
-            $table->geography('destination_coordinates', 'point')->nullable();
+            $table->geometry('destination_coordinates')->nullable();
             $table->boolean('is_reached_destination')->default(false);
             $table->string('destination_address')->nullable();
             $table->text('intermediate_coordinates')->nullable();
-            $table->geography('int_coordinate_1', 'point')->nullable();
+            $table->geometry('int_coordinate_1')->nullable();
             $table->boolean('is_reached_1')->default(false);
-            $table->geography('int_coordinate_2', 'point')->nullable();
+            $table->geometry('int_coordinate_2')->nullable();
             $table->boolean('is_reached_2')->default(false);
             $table->text('intermediate_addresses')->nullable();
-            $table->geography('start_coordinates', 'point')->nullable();
-            $table->geography('drop_coordinates', 'point')->nullable();
-            $table->geography('driver_accept_coordinates', 'point')->nullable();
-            $table->geography('customer_request_coordinates', 'point')->nullable();
+            $table->geometry('start_coordinates')->nullable();
+            $table->geometry('drop_coordinates')->nullable();
+            $table->geometry('driver_accept_coordinates')->nullable();
+            $table->geometry('customer_request_coordinates')->nullable();
             $table->timestamps();
         });
     }

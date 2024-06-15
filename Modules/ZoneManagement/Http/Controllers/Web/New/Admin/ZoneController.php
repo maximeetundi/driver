@@ -50,8 +50,13 @@ class ZoneController extends BaseController
     public function store(ZoneStoreUpdateRequest $request): RedirectResponse
     {
         $this->authorize('zone_add');
+
         try {
-            $this->zoneService->create($request->validated());
+
+        $dat = $request->validated();
+        $dat['is_active'] = 1;
+        $this->zoneService->create($dat);
+
         } catch (\Exception $e) {
             Toastr::error(DEFAULT_400['message']);
             return back();

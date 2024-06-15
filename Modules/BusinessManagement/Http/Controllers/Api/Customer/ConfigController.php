@@ -64,7 +64,7 @@ class ConfigController extends Controller
             'websocket_url' => $info->firstWhere('key_name', 'websocket_url')?->value ?? null,
             'websocket_port' => (string) $info->firstWhere('key_name', 'websocket_port')?->value ?? 6001,
             'websocket_key' => env('PUSHER_APP_KEY'),
-            'base_url' => url('/') . 'api/v1/',
+            'base_url' => url('/') . '/api/v1/',
             'review_status' => (bool) $info->firstWhere('key_name', 'customer_review')?->value ?? null,
             'search_radius' => $info->firstWhere('key_name', 'search_radius')?->value ?? 5,
             'driver_completion_radius' => $info->firstWhere('key_name', 'driver_completion_radius')?->value ?? 10 ,

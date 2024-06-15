@@ -15,6 +15,7 @@ class ZoneStoreUpdateRequest extends FormRequest
     public function rules()
     {
         $id = $this->id;
+
         return [
             'name' => 'required|max:191|unique:zones,name,'.$id,
             'coordinates' => 'required',
