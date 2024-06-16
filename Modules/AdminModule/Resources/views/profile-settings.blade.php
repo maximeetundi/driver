@@ -1,6 +1,6 @@
 @extends('adminmodule::layouts.master')
 
-@section('title', translate('Update_Profile'))
+@section('title', translate('update_profile'))
 
 @push('css_or_js')
 @endpush
@@ -10,18 +10,18 @@
     <!-- Main Content -->
     <div class="main-content">
         <div class="container-fluid">
-            <div class="d-flex flex-wrap justify-content-between gap-3 align-items-center mb-4">
+            <div class="flex-wrap gap-3 mb-4 d-flex justify-content-between align-items-center">
                 <h2 class="fs-22 text-capitalize">{{ translate('update_profile') }}</h2>
             </div>
 
             <form action="{{ route('admin.update-profile', ['id' => auth()->id()]) }}" method="post"
                 enctype="multipart/form-data">
                 @csrf
-                <div class="card overflow-visible">
+                <div class="overflow-visible card">
                     <div class="card-body">
                         <div class="row gy-4">
                             <div class="col-lg-8">
-                                <h5 class="text-primary text-uppercase mb-4">{{ translate('general_information') }}
+                                <h5 class="mb-4 text-primary text-uppercase">{{ translate('general_information') }}
                                 </h5>
 
                                 <div class="row align-items-end">
@@ -84,13 +84,13 @@
                                 </div>
                             </div>
                             <div class="col-lg-4">
-                                <div class="d-flex flex-column justify-content-around gap-3">
+                                <div class="gap-3 d-flex flex-column justify-content-around">
                                     <h5 class="text-center text-capitalize">{{ translate('profile_image') }}</h5>
 
                                     <div class="d-flex justify-content-center">
                                         <div class="upload-file">
                                             <input type="file" name="profile_image" class="upload-file__input" accept=".jpg, .jpeg, .png">
-                                            <div class="upload-file__img w-auto h-auto">
+                                            <div class="w-auto h-auto upload-file__img">
                                                 <img width="150"
                                                     src="{{ onErrorImage(
                                                         auth()->user()?->profile_image,
@@ -103,12 +103,12 @@
                                         </div>
                                     </div>
 
-                                    <p class="opacity-75 mx-auto max-w220">
+                                    <p class="mx-auto opacity-75 max-w220">
                                         {{ translate('File Format - jpg, png, jpeg') }}
                                         {{ translate('Image Size - Maximum Size 5 MB.') }}</p>
                                 </div>
                             </div>
-                            <div class="d-flex justify-content-end gap-3 mt-3">
+                            <div class="gap-3 mt-3 d-flex justify-content-end">
                                 <button class="btn btn-primary" type="submit">{{ translate('save') }}</button>
                             </div>
                         </div>
