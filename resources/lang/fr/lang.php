@@ -828,7 +828,7 @@
   'Unlock Financial Opportunities: Your Gateway to Earn Money and Achieve Financial Freedom! ' => 'Débloquez les opportunités financières : Votre passerelle pour gagner de l\'argent et atteindre la liberté financière ! ',
   'Explore limitless possibilities with our platform — turning your skills  time  and passion into a rewarding source of income. ' => 'Explorez des possibilités illimitées avec notre plateforme - transformez vos compétences  votre temps et votre passion en une source de revenus enrichissante. ',
   'Be a Delivery man / Driver' => 'Devenez livreur / chauffeur',
-  'People Share Their Love' => 'Les gens partagent leur amour',
+  'People Share Their Love' => 'Personnes partagent leur amour',
   'Download Our App' => 'Téléchargez notre application',
   'For both Android and iOS' => 'Pour Android et iOS',
   'User App' => 'Application utilisateur',
