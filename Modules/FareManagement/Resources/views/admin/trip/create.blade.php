@@ -6,7 +6,7 @@
     <!-- Main Content -->
     <div class="main-content">
         <div class="container-fluid">
-            <h2 class="fs-22 mb-4">{{ translate('Trip_Fare_Setup')}}</h2>
+            <h2 class="mb-4 fs-22">{{ translate('Trip_Fare_Setup')}}</h2>
 
 
             <form action="{{route('admin.fare.trip.store')}}" method="post" id="trip-store-form">
@@ -18,7 +18,7 @@
 
                         <h6 class="mb-3 text-capitalize">{{ translate('available_vehicle_categories_in_this_zone')}}</h6>
 
-                        <div class="d-flex flex-wrap align-items-center gap-4 gap-xl-5 mb-30">
+                        <div class="flex-wrap gap-4 d-flex align-items-center gap-xl-5 mb-30">
                             @forelse($vehicleCategories as $vehicleCategory)
                                 @php($trip = $tripFares?->where('vehicle_category_id', $vehicleCategory->id)->first())
                                 <label class="custom-checkbox">
@@ -38,19 +38,19 @@
                         <input type="hidden" name="default_fare_id" value="{{$defaultTripFare?->id}}">
 
                         <div class="col-12">
-                            <h6 class="fw-medium mb-3 d-flex align-items-center gap-2 text-capitalize">
+                            <h6 class="gap-2 mb-3 fw-medium d-flex align-items-center text-capitalize">
                                 {{ translate('use_category_wise_different_fare')}} ?
                                 <i class="bi bi-info-circle-fill text-primary fs-16" data-bs-toggle="tooltip"
                                    data-bs-title="{{ translate('if_Yes,_each_vehicle_category_has_different_fares.').' '. translate('otherwise_all_categories_will_share_the_same_fare') }}"></i>
                             </h6>
-                            <div class="d-flex flex-wrap align-items-center gap-3">
-                                <div class="d-flex gap-2 align-items-center">
+                            <div class="flex-wrap gap-3 d-flex align-items-center">
+                                <div class="gap-2 d-flex align-items-center">
                                     <input name="category_wise_different_fare" class="use_category_wise" type="radio"
                                            value="1"
                                            id="use_category_wise1" {{empty($defaultTripFare) || (!empty($defaultTripFare) && $defaultTripFare?->category_wise_different_fare == 1)  ? "checked" : ""}}>
                                     <label for="use_category_wise1">{{ translate('yes')}}</label>
                                 </div>
-                                <div class="d-flex gap-2 align-items-center">
+                                <div class="gap-2 d-flex align-items-center">
                                     <input name="category_wise_different_fare" class="use_category_wise" type="radio"
                                            value="0"
                                            id="use_category_wise2" {{!empty($defaultTripFare) && $defaultTripFare?->category_wise_different_fare == 0 ? "checked" : ""}}>
@@ -60,7 +60,7 @@
                         </div>
 
 
-                        <div class="row gy-4 custom-class-fare mt-3">
+                        <div class="mt-3 row gy-4 custom-class-fare">
 
 
 
@@ -98,11 +98,11 @@
                                 </div>
                             </div>
                             <div class="col-sm-6 col-lg-4">
-                                <label for="min_cancellation_fee" class="form-label">{{ translate('Minimum_Cancellation_Fee_($)') }}</label>
+                                <label for="min_cancellation_fee" class="form-label">{{ translate('minimum_cancellation_fee') }}</label>
                                 <div class="input-group_tooltip">
                                     <input type="number" name="min_cancellation_fee" step=".01" min="0"
                                            class="form-control part-1-input copy-value"
-                                           placeholder="{{ translate('Minimum_Cancellation_Fee_($)')}}"
+                                           placeholder="{{ translate('minimum_cancellation_fee')}}"
                                            id="min_cancellation_fee"
                                            value="{{$defaultTripFare->min_cancellation_fee ?? 0}}" required>
                                     <i class="bi bi-info-circle-fill text-primary tooltip-icon" data-bs-toggle="tooltip"
@@ -138,8 +138,8 @@
                                 </div>
                             </div>
 
-                            <div class="col-12 pt-3" id="different-fare-div">
-                                <div class="table-responsive border border-primary rounded"
+                            <div class="pt-3 col-12" id="different-fare-div">
+                                <div class="rounded border table-responsive border-primary"
                                      style="--bs-border-opacity: .2">
                                     <table class="table align-middle table-borderless table-variation">
                                         <thead class="border-bottom border-primary" style="--bs-border-opacity: .2">
@@ -156,7 +156,7 @@
                                         <tbody>
                                         <tr>
                                             <td>
-                                                <div class="d-flex align-items-center gap-2 text-primary fw-semibold">
+                                                <div class="gap-2 d-flex align-items-center text-primary fw-semibold">
                                                     <div class="text-capitalize">
                                                         {{ translate('base_fare')}}
                                                         ({{session()->get('currency_symbol') ?? '$'}})
@@ -185,7 +185,7 @@
                                         </tr>
                                         <tr>
                                             <td>
-                                                <div class="d-flex align-items-center gap-2 text-primary fw-semibold">
+                                                <div class="gap-2 d-flex align-items-center text-primary fw-semibold">
                                                     <div class="text-capitalize">
                                                         {{translate('fare_per_km')}}
                                                         ({{session()->get('currency_symbol') ?? '$'}})
@@ -212,7 +212,7 @@
                                         </tr>
                                         <tr>
                                             <td>
-                                                <div class="d-flex align-items-center gap-2 text-primary fw-semibold">
+                                                <div class="gap-2 d-flex align-items-center text-primary fw-semibold">
                                                     <div class="text-capitalize">{{translate('cancellation_fee')}}
                                                         (%)
                                                     </div>
@@ -240,7 +240,7 @@
                                         </tr>
                                         <tr>
                                             <td>
-                                                <div class="d-flex align-items-center gap-2 text-primary fw-semibold">
+                                                <div class="gap-2 d-flex align-items-center text-primary fw-semibold">
                                                     <div class="text-capitalize">
                                                         {{translate('minimum_cancellation_fee')}}
                                                         ({{session()->get('currency_symbol') ?? '$'}})
@@ -267,7 +267,7 @@
                                         </tr>
                                         <tr>
                                             <td>
-                                                <div class="d-flex align-items-center gap-2 text-primary fw-semibold">
+                                                <div class="gap-2 d-flex align-items-center text-primary fw-semibold">
                                                     <div class="text-capitalize">
                                                         {{translate('idle_fee')}}
                                                         ({{session()->get('currency_symbol') ?? '$'}})
@@ -295,7 +295,7 @@
                                         </tr>
                                         <tr>
                                             <td>
-                                                <div class="d-flex align-items-center gap-2 text-primary fw-semibold">
+                                                <div class="gap-2 d-flex align-items-center text-primary fw-semibold">
                                                     <div>{{translate('Trip_Delay_Fee_(Per_min)')}}</div>
                                                     <i class="bi bi-info-circle-fill fs-14" data-bs-toggle="tooltip"
                                                        data-bs-title="{{translate('set_the_delay_fee_(per_min)_here._') .
@@ -324,7 +324,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="d-flex justify-content-end gap-3 mt-3">
+                        <div class="gap-3 mt-3 d-flex justify-content-end">
                             <button class="btn btn-primary text-uppercase"
                                     type="submit" id="submit">{{ translate('submit') }}</button>
                         </div>

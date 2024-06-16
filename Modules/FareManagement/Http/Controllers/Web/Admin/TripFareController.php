@@ -94,7 +94,7 @@ class TripFareController extends Controller
 
         if (!$hasDynamicField) {
 
-            Toastr::error('Please select vehicle category');
+            Toastr::error(translate('Please_select_vehicle_category'));
             return back();
         }
         $vehicleCategories = $this->vehicleCategories->get(limit: 1000, offset: 1);
