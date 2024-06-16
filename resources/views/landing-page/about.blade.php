@@ -1,5 +1,5 @@
 @extends('landing-page.layouts.master')
-@section('title', 'About Us')
+@section('title', translate('About Us'))
 
 
 @section('content')
@@ -14,7 +14,7 @@
         </section>
     </div>
     <!-- Page Header End -->
-    <section class="terms-section py-5">
+    <section class="py-5 terms-section">
         <div class="container">
             {!! $data?->value['long_description'] !!}
         </div>

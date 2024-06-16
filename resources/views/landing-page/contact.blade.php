@@ -1,5 +1,5 @@
 @extends('landing-page.layouts.master')
-@section('title', 'Contact Us')
+@section('title', translate('Contact Us'))
 
 
 @section('content')
@@ -14,9 +14,9 @@
         </section>
     </div>
     <!-- Page Header End -->
-    <section class="contact-section pb-60 pt-30">
+    <section class="pb-60 contact-section pt-30">
         <div class="container">
-            <div class="text-center mb-3">
+            <div class="mb-3 text-center">
                 <img src="./assets/img/contact.png" alt="">
             </div>
 

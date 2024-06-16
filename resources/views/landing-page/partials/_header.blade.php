@@ -9,7 +9,7 @@
                 </a>
                 <ul class="menu me-lg-4">
                     <li>
-                        <a href="{{route('index')}}" class="{{Request::is('/')? 'active' :''}}"><span>Home</span></a>
+                        <a href="{{route('index')}}" class="{{Request::is('/')? 'active' :''}}"><span>{{ translate('Home') }}</span></a>
                     </li>
                     <li>
                         <a href="{{route('privacy')}}" class="{{Request::is('privacy') ? 'active' :''}}"><span>{{ translate('Privacy Policy') }}</span></a>

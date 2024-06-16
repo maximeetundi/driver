@@ -1,5 +1,5 @@
 @extends('landing-page.layouts.master')
-@section('title', 'Home')
+@section('title', translate('Home'))
 
 
 @section('content')
@@ -12,7 +12,7 @@
                     <h1 class="title">{{ $introSection?->value && $introSection?->value['title'] ? translate($introSection?->value['title']) : translate("It’s Time to Change The Riding Experience") }}</h1>
                     <p class="txt">{{ $introSection?->value && $introSection?->value['sub_title'] ? translate($introSection?->value['sub_title']) : translate("Embrace the future today and explore the amazing features that make DriveMond the smart, sustainable, and efficient ride sharing & delivery solution.") }}
                     </p>
-                    <div class="app--btns d-flex flex-wrap">
+                    <div class="flex-wrap app--btns d-flex">
                         <div class="dropdown">
                             <a href="#" class="cmn--btn"
                                data-bs-toggle="dropdown">{{translate('Download User App')}}</a>
@@ -35,7 +35,7 @@
                                 </ul>
                             </div>
                         </div>
-                        <a href="#about" class="cmn--btn btn-white text-nowrap overflow-hidden text-truncate">
+                        <a href="#about" class="overflow-hidden cmn--btn btn-white text-nowrap text-truncate">
                             {{translate('Earn_From')}} {{ $business_name['value'] ?? "DriveMond" }}
                         </a>
                     </div>
@@ -89,26 +89,26 @@
     </section>
     <!-- Basic Info Section End -->
     <!-- Platform Section Start -->
-    <section class="platform-section pt-60 pb-60">
+    <section class="pt-60 pb-60 platform-section">
         <img src="{{ asset('public/landing-page/assets/img/platform/platform-bg.png') }}"
              class="shape d-none d-lg-block" alt="">
         <div class="container position-relative">
-            <div class="text-center wow animate__fadeInUp pb-4">
-                <h3 class="section-title mb-0">
+            <div class="pb-4 text-center wow animate__fadeInUp">
+                <h3 class="mb-0 section-title">
                     {{ $ourSolutionSection?->value && $ourSolutionSection?->value['title'] ? translate($ourSolutionSection?->value['title']) : translate("Our_Solutions") }}
                     {{--                    {{ translate("Our")}} <span class="text--base">{{ translate("Solutions")}}</span>--}}
                 </h3>
-                <p class="section-text mt-0 pt-2">
+                <p class="pt-2 mt-0 section-text">
                     {{ $ourSolutionSection?->value && $ourSolutionSection?->value['sub_title'] ? translate($ourSolutionSection?->value['sub_title']) : translate("Explore our dynamic day-to-day solution for everyday life") }}
                 </p>
 
             </div>
 
-            <div class="row justify-content-center gap-4 mt-3">
+            <div class="gap-4 mt-3 row justify-content-center">
                 @if($ourSolutionSectionListCount > 0)
                     @foreach($ourSolutionSectionList as $ourSolutionSingle)
                         @if($ourSolutionSingle?->value['status'] == 1)
-                            <div class="col-sm-6 col-md-5 mb-3">
+                            <div class="mb-3 col-sm-6 col-md-5">
                                 <div class="platform-item wow animate__fadeInUp">
                                     <img src="{{ onErrorImage(
                                             $ourSolutionSingle?->value['image'],
@@ -116,10 +116,10 @@
                                             asset('public/landing-page/assets/img/platform/'.rand(1,2).'.png'),
                                             'business/landing-pages/our-solutions/',
                                         ) }}" alt="" class="img-fluid square-uploaded-img">
-                                    <h6 class="title mt-3">
+                                    <h6 class="mt-3 title">
                                         {{ $ourSolutionSingle?->value['title'] ?? '' }}
                                     </h6>
-                                    <p class="txt ">
+                                    <p class="txt">
                                         {{ $ourSolutionSingle?->value['description'] ?? '' }}
                                     </p>
                                 </div>
@@ -127,14 +127,14 @@
                         @endif
                     @endforeach
                 @else
-                    <div class="col-sm-6 col-md-5 mb-3">
+                    <div class="mb-3 col-sm-6 col-md-5">
                         <div class="platform-item wow animate__fadeInUp">
                             <img src="{{ asset('public/landing-page/assets/img/platform/1.png') }}" alt="">
                             <h6 class="title">{{ translate('Ride Sharing') }}</h6>
                             <p class="txt">{{ translate('Book a ride to your desired destination and set a custom fare from the app') }}</p>
                         </div>
                     </div>
-                    <div class="col-sm-6 col-md-5 mb-3">
+                    <div class="mb-3 col-sm-6 col-md-5">
                         <div class="platform-item wow animate__fadeInUp">
                             <img src="{{ asset('public/landing-page/assets/img/platform/2.png') }}" alt="">
                             <h6 class="title">{{ translate('Parcel Delivery') }}</h6>
@@ -159,7 +159,7 @@
                          alt="img">
                 </div>
 
-                <div class="about__wrapper-content bg-transparent wow animate__fadeInDown">
+                <div class="bg-transparent about__wrapper-content wow animate__fadeInDown">
                     <h3 class="section-title text-start ms-0">{{ $earnMoney?->value && $earnMoney?->value['title'] ? translate($earnMoney?->value['title']) : translate("Earn Money with") }}
                         <span class="text--base">{{ $business_name['value']??"DriveMond"}}</span></h3>
                     <p>
@@ -167,7 +167,7 @@
                     </p>
                     <br>
                     <div class="dropdown d-inline-block">
-                        <a class="cmn--btn btn-black px-4 h-50" href="#" data-bs-toggle="dropdown">
+                        <a class="px-4 cmn--btn btn-black h-50" href="#" data-bs-toggle="dropdown">
                             {{translate('Be a Delivery man / Driver')}}
                         </a>
                         <div class="dropdown-menu dropdown-button-menu">
@@ -195,7 +195,7 @@
     <!-- Testimonial Section Start -->
     <section class="testimonial-section pt-50 pb-50">
         <div class="container-fluid">
-            <h3 class="section-title mb-0 wow animate__fadeInUp"><span
+            <h3 class="mb-0 section-title wow animate__fadeInUp"><span
                     class="text--base">2000+</span> {{ translate('People Share Their Love') }}</h3>
             <div class="wow animate__fadeInDown">
                 <div class="testimonial-slider owl-theme owl-carousel">
@@ -216,7 +216,7 @@
                                     <div class="testimonial__item-cont">
                                         <h6 class="name">{{ $testimonial?->value && $testimonial?->value['reviewer_name'] ? $testimonial?->value['reviewer_name']: "" }}</h6>
                                         <span
-                                            class="text--base">{{ $testimonial?->value && $testimonial?->value['designation'] ? $testimonial?->value['designation']: "" }}</span>
+                                            class="text--base">{{ translate(strtolower($testimonial?->value && $testimonial?->value['designation'] ? $testimonial?->value['designation']: '')) }}</span>
                                         <div class="rating">
                                             @php($count = $testimonial?->value && $testimonial?->value['rating'] ? $testimonial?->value['rating'] : 0)
 
@@ -246,7 +246,7 @@
                             <div class="testimonial__item-cont">
                                 <h6 class="name">{{ "Roofus K." }}</h6>
                                 <span
-                                    class="text--base">{{ "Customer" }}</span>
+                                    class="text--base">{{ translate(strtolower("Customer")) }}</span>
                                 <div class="rating">
                                     @php($count = 5)
 
@@ -273,7 +273,7 @@
                     <div class="owl-btn testimonial-owl-prev">
                         <i class="las la-long-arrow-alt-left"></i>
                     </div>
-                    <div class="slider-counter mx-3"></div>
+                    <div class="mx-3 slider-counter"></div>
                     <div class="owl-btn testimonial-owl-next">
                         <i class="las la-long-arrow-alt-right"></i>
                     </div>
@@ -290,13 +290,13 @@
                 <div class="cta-inner">
                     <div class="content wow animate__fadeInDown">
                         <h2 class="title text-capitalize">{{ $cta?->value && $cta?->value['title'] ? translate($cta?->value['title']) : translate("Download Our App") }}</h2>
-                        <p class="mb-3 pb-1">
+                        <p class="pb-1 mb-3">
                             {{ $cta?->value && $cta?->value['sub_title'] ? translate($cta?->value['sub_title']) : translate("For both Android and IOS") }}
                         </p>
-                        <div class="d-flex gap-4 gap-md-5">
+                        <div class="gap-4 d-flex gap-md-5">
                             <div class="me-xl-4">
-                                <h6 class="text-white mb-3 font-regular">{{translate('User App')}}</h6>
-                                <div class="d-flex gap-3 flex-column">
+                                <h6 class="mb-3 text-white font-regular">{{translate('User App')}}</h6>
+                                <div class="gap-3 d-flex flex-column">
                                     <a target="_blank" class="no-gutter" type="button"
                                        href="{{ $cta?->value && $cta?->value['app_store']['user_download_link'] ? $cta?->value['app_store']['user_download_link'] : "" }}">
                                         <img src="{{ asset('public/landing-page') }}/assets/img/app-store.png"
@@ -310,8 +310,8 @@
                                 </div>
                             </div>
                             <div>
-                                <h6 class="text-white mb-3 font-regular">{{translate('Driver App')}}</h6>
-                                <div class="d-flex gap-3 flex-column">
+                                <h6 class="mb-3 text-white font-regular">{{translate('Driver App')}}</h6>
+                                <div class="gap-3 d-flex flex-column">
                                     <a target="_blank" class="no-gutter" type="button"
                                        href="{{ $cta?->value && $cta?->value['app_store']['driver_download_link'] ? $cta?->value['app_store']['driver_download_link'] : "" }}">
                                         <img src="{{ asset('public/landing-page') }}/assets/img/app-store.png"

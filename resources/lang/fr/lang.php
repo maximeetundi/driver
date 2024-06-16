@@ -1299,7 +1299,6 @@
   'Support' => 'Support',
   'Happy Customer' => 'Client satisfait',
   'Complete Ride' => 'Course terminée',
-  'Embrace the future today and explore the amazing features that make DriveMond the smart sustainable and efficient ride sharing & delivery solution.' => 'Adoptez le futur dès aujourd\'hui et explorez les fonctionnalités étonnantes qui font de DriveMond la solution intelligente, durable et efficace de covoiturage et de livraison.',
   'site_key' => 'Clé du site',
   'Server key should have enable place api key and you can restrict it with ip' => 'La clé de serveur doit avoir activé la clé API de lieu et vous pouvez la restreindre par IP',
   'encryption' => 'Chiffrement',
@@ -1315,4 +1314,8 @@
   12 => '12',
   'There are no selected vehicle categories in your zone' => 'Aucune catégorie de véhicule sélectionnée dans votre zone',
   'Successfully logged out' => 'Déconnexion réussie',
+  'Embrace the future today and explore the amazing features that make DriveMond the smart  sustainable  and efficient ride sharing & delivery solution.' => 'Adoptez le futur dès aujourd\'hui et explorez les fonctionnalités étonnantes qui font de DriveMond la solution intelligente, durable et efficace de covoiturage et de livraison.',
+  '' => '',
+  'Address' => 'Address',
+  'Customer' => 'Customer',
 );
