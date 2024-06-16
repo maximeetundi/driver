@@ -1,0 +1,27 @@
+<?php
+
+return [
+    'email_registration_ready' => 'L\'email est prêt à être enregistré',
+    'number_registration_ready' => 'Le numéro de téléphone est prêt à être enregistré',
+    'token_not_found' => 'Jeton non trouvé!',
+    'first_name_required' => 'Le champ du prénom est requis.',
+    'last_name_required' => 'Le champ du nom est requis.',
+    'login_failed' => 'Échec de la connexion, vérifiez à nouveau vos identifiants.',
+    'email_sent' => 'Email envoyé avec succès.',
+    'email_not_found' => 'Adresse email non trouvée!.',
+    'valid_token' => 'Jeton correspondant, vous pouvez continuer',
+    'invalid_token' => 'Jeton invalide',
+    'password_changed' => 'Mot de passe changé avec succès!',
+    'password_not_matched' => 'Le mot de passe ne correspond pas!',
+    'coupon_limit_over' => 'La limite d\'utilisation du code de réduction est atteinte pour vous!',
+    'coupon_not_found' => 'Code de réduction non trouvé!',
+    'no_data_found' => 'Aucune donnée trouvée!',
+    'update_success' => 'Mise à jour réussie!',
+    'added_success' => 'Ajouté avec succès!',
+    'removed_success' => 'Supprimé avec succès!',
+    'already_added' => 'Déjà dans votre liste de souhaits',
+    'order_success' => 'Commande passée avec succès!',
+    'order_canceled' => 'Commande annulée',
+    'payment_method_updated' => 'Méthode de paiement mise à jour',
+    'review_submit_success' => 'Avis soumis avec succès!',
+];
