@@ -1,542 +1,527 @@
 <?php
-
 //default responses
 const DEFAULT_200 = [
     'response_code' => 'default_200',
-    'message' => 'Successfully loaded'
+    'message' => 'Chargement réussi'
 ];
 
 const DEFAULT_SENT_OTP_200 = [
     'response_code' => 'default_200',
-    'message' => 'Successfully sent OTP'
+    'message' => 'OTP envoyé avec succès'
 ];
 
 const DEFAULT_VERIFIED_200 = [
     'response_code' => 'default_verified_200',
-    'message' => 'Successfully verified'
+    'message' => 'Vérifié avec succès'
 ];
 
 const DEFAULT_EXPIRED_200 = [
     'response_code' => 'default_expired_200',
-    'message' => 'Resource expired'
+    'message' => 'Ressource expirée'
 ];
 
 const COUPON_404 = [
     'response_code' => 'coupon_404',
-    'message' => 'coupon not found or not applicable'
+    'message' => 'Coupon non trouvé ou non applicable'
 ];
 
 const DEFAULT_PASSWORD_RESET_200 = [
     'response_code' => 'default_password_reset_200',
-    'message' => 'Password reset successful'
+    'message' => 'Réinitialisation du mot de passe réussie'
 ];
 
 const DEFAULT_PASSWORD_CHANGE_200 = [
     'response_code' => 'default_password_change_200',
-    'message' => 'Password changed successful'
+    'message' => 'Changement de mot de passe réussi'
 ];
 
 const DEFAULT_PASSWORD_MISMATCH_403 = [
     'response_code' => 'default_password_mismatch_403',
-    'message' => 'Given password does not match with previous password'
+    'message' => 'Le mot de passe fourni ne correspond pas au mot de passe précédent'
 ];
 
 const NO_CHANGES_FOUND = [
     'response_code' => 'no_changes_found_200',
-    'message' => 'No changes found'
+    'message' => 'Aucun changement trouvé'
 ];
 
 const DEFAULT_204 = [
     'response_code' => 'default_204',
-    'message' => 'Information not found'
+    'message' => 'Information non trouvée'
 ];
 
 const NO_DATA_200 = [
     'response_code' => 'no_data_found_200',
-    'message' => 'No data found'
+    'message' => 'Aucune donnée trouvée'
 ];
+
 const DEFAULT_400 = [
     'response_code' => 'default_400',
-    'message' => 'Invalid or missing information'
+    'message' => 'Informations invalides ou manquantes'
 ];
 
 const DEFAULT_401 = [
     'response_code' => 'default_401',
-    'message' => 'Credential does not match'
+    'message' => 'Les identifiants ne correspondent pas'
 ];
 
 const DEFAULT_EXISTS_203 = [
     'response_code' => 'default_exists_203',
-    'message' => 'Resource already exists'
+    'message' => 'La ressource existe déjà'
 ];
 
 const DEFAULT_USER_REMOVED_401 = [
     'response_code' => 'default_user_removed_401',
-    'message' => 'User has been removed, please talk to the authority'
+    'message' => 'L\'utilisateur a été supprimé, veuillez contacter un Administrateur Avec Plus de Droit d\'access'
 ];
 
 const USER_404 = [
     'response_code' => 'user_404',
-    'message' => 'User not found'
+    'message' => 'Utilisateur non trouvé'
 ];
 
 const DEFAULT_USER_UNDER_REVIEW_DISABLED_401 = [
     'response_code' => 'default_user_under_review_or_disabled_401',
-    'message' => 'Your account is under review'
+    'message' => 'Votre compte est en cours de révision'
 ];
 
 const DEFAULT_USER_DISABLED_401 = [
     'response_code' => 'default_user_disabled_401',
-    'message' => 'User has been disabled, please talk to the authority'
+    'message' => 'L\'utilisateur a été désactivé, veuillez contacter un Administrateur Avec Plus de Droit d\'access'
 ];
 
 const DEFAULT_403 = [
     'response_code' => 'default_403',
-    'message' => 'Your access has been denied'
+    'message' => 'Votre accès a été refusé'
 ];
 
 const DEFAULT_NOT_ACTIVE = [
     'response_code' => 'default_not_active_200',
-    'message' => 'Retrieved data is not active'
+    'message' => 'Les données récupérées ne sont pas actives'
 ];
-
 
 const DEFAULT_404 = [
     'response_code' => 'default_404',
-    'message' => 'Resource not found'
+    'message' => 'Ressource non trouvée'
 ];
 
 const TRIP_REQUEST_PAUSED_404 = [
     'response_code' => 'trip_request_paused_404',
-    'message' => 'Trip is paused, status can not be updated'
+    'message' => 'Le trajet est en pause, le statut ne peut pas être mis à jour'
 ];
 
 const OFFLINE_403 = [
     'response_code' => 'offline_403',
-    'message' => 'Can not go to offline during running trip',
+    'message' => 'Impossible de passer hors ligne pendant le trajet en cours',
 ];
 
 const AMOUNT_400 = [
     'response_code' => 'amount_400',
-    'message' => 'Requested amount is greater than available amount'
+    'message' => 'Le montant demandé est supérieur au montant disponible'
 ];
 
 const DEFAULT_DELETE_200 = [
     'response_code' => 'default_delete_200',
-    'message' => 'Successfully deleted information'
+    'message' => 'Informations supprimées avec succès'
 ];
 
 const DEFAULT_FAIL_200 = [
     'response_code' => 'default_fail_200',
-    'message' => 'Action failed'
+    'message' => 'Action échouée'
 ];
 
 const DEFAULT_PAID_200 = [
     'response_code' => 'default_paid_200',
-    'message' => 'Already paid'
+    'message' => 'Déjà payé'
 ];
 
 const DEFAULT_LAT_LNG_400 = [
     'response_code' => 'default_lat_lng_400',
-    'message' => 'Pick up or Destination points are wrong!'
+    'message' => 'Les points de départ ou de destination sont incorrects !'
 ];
-
-
 
 const DEFAULT_STORE_200 = [
     'response_code' => 'default_store_200',
-    'message' => 'Successfully added'
+    'message' => 'Ajouté avec succès'
 ];
 
 const DEFAULT_UPDATE_200 = [
     'response_code' => 'default_update_200',
-    'message' => 'Successfully updated'
+    'message' => 'Mise à jour réussie'
 ];
 
 const DEFAULT_RESTORE_200 = [
     'response_code' => 'default_restore_200',
-    'message' => 'Successfully restored'
+    'message' => 'Restauré avec succès'
 ];
 
 const DEFAULT_STATUS_UPDATE_200 = [
     'response_code' => 'default_status_update_200',
-    'message' => 'Successfully status updated'
+    'message' => 'Statut mis à jour avec succès'
 ];
 
 const TOO_MANY_ATTEMPT_403 = [
     'response_code' => 'too_many_attempt_403',
-    'message' => 'Your api hit limit exceeded, try after a minute.'
+    'message' => 'Votre limite d\'appels API a été dépassée, réessayez dans une minute.'
 ];
-
 
 const REGISTRATION_200 = [
     'response_code' => 'registration_200',
-    'message' => 'Successfully registered'
+    'message' => 'Enregistré avec succès'
 ];
 
 //auth module
 const AUTH_LOGIN_200 = [
     'response_code' => 'auth_login_200',
-    'message' => 'Successfully logged in'
+    'message' => 'Connecté avec succès'
 ];
 
 const AUTH_LOGOUT_200 = [
     'response_code' => 'auth_logout_200',
-    'message' => 'Successfully logged out'
+    'message' => 'Déconnecté avec succès'
 ];
 
 const ACCOUNT_DELETED_200 = [
     'response_code' => 'account_deleted_200',
-    'message' => 'Your account is deleted successfully'
+    'message' => 'Votre compte a été supprimé avec succès'
 ];
 
 const AUTH_LOGIN_401 = [
     'response_code' => 'auth_login_401',
-    'message' => 'User credential does not match'
+    'message' => 'Les identifiants de l\'utilisateur ne correspondent pas'
 ];
 
 const AUTH_LOGIN_404 = [
     'response_code' => 'auth_login_404',
-    'message' => 'Something went wrong or the account could not be found'
+    'message' => 'Quelque chose s\'est mal passé ou le compte n\'a pas pu être trouvé'
 ];
 
 const ACCOUNT_DISABLED = [
     'response_code' => 'account_disabled_401',
-    'message' => 'User account has been disabled, please talk to the admin.'
+    'message' => 'Le compte utilisateur a été désactivé, veuillez parler à l\'administrateur.'
 ];
 
 const AUTH_LOGIN_403 = [
     'response_code' => 'auth_login_403',
-    'message' => 'Wrong login credentials'
+    'message' => 'Identifiants de connexion incorrects'
 ];
-
-
 
 const ACCESS_DENIED = [
     'response_code' => 'access_denied_403',
-    'message' => 'Access denied'
+    'message' => 'Accès refusé'
 ];
-
 
 //user management module
 const USER_ROLE_CREATE_400 = [
     'response_code' => 'user_role_create_400',
-    'message' => 'Invalid or missing information'
+    'message' => 'Informations invalides ou manquantes'
 ];
 
 const USER_ROLE_CREATE_200 = [
     'response_code' => 'user_role_create_200',
-    'message' => 'Successfully added'
+    'message' => 'Ajouté avec succès'
 ];
 
 const USER_ROLE_UPDATE_200 = [
     'response_code' => 'user_role_update_200',
-    'message' => 'Successfully updated'
+    'message' => 'Mise à jour réussie'
 ];
 
 const USER_ROLE_UPDATE_400 = [
     'response_code' => 'user_role_update_400',
-    'message' => 'Invalid or missing data'
+    'message' => 'Données invalides ou manquantes'
 ];
 
 const DRIVER_STORE_200 = [
     'response_code' => 'driver_store_200',
-    'message' => 'Successfully added'
+    'message' => 'Ajouté avec succès'
 ];
 
 const DRIVER_UPDATE_200 = [
     'response_code' => 'driver_store_200',
-    'message' => 'Successfully updated'
+    'message' => 'Mise à jour réussie'
 ];
 
 const DRIVER_DELETE_200 = [
     'response_code' => 'driver_delete_200',
-    'message' => 'Successfully deleted information'
+    'message' => 'Informations supprimées avec succès'
 ];
 
 const DRIVER_DELETE_403 = [
     'response_code' => 'driver_delete_403',
-    'message' => 'Unable Delete Now'
+    'message' => 'Impossible de supprimer maintenant'
 ];
 
 const DRIVER_BID_NOT_FOUND_403 = [
     'response_code' => 'driver_bid_not_found_403',
-    'message' => 'Driver cancel the bid or bid not available for this ride'
+    'message' => 'Le conducteur a annulé l\'offre ou l\'offre n\'est pas disponible pour ce trajet'
 ];
 
 const DRIVER_403 = [
     'response_code' => 'driver_403',
-    'message' => 'Driver is not available'
+    'message' => 'Le conducteur n\'est pas disponible'
 ];
+
 const CUSTOMER_STORE_200 = [
     'response_code' => 'customer_store_200',
-    'message' => 'Successfully added'
+    'message' => 'Ajouté avec succès'
 ];
 
 const CUSTOMER_VERIFICATION_400 = [
     'response_code' => 'customer_verification_400',
-    'message' => 'Please enable customer verification option'
+    'message' => 'Veuillez activer l\'option de vérification du client'
 ];
 
 const CUSTOMER_404 = [
     'response_code' => 'customer_404',
-    'message' => 'Customer does not exists'
+    'message' => 'Le client n\'existe pas'
 ];
+
 const CUSTOMER_UPDATE_200 = [
     'response_code' => 'customer_store_200',
-    'message' => 'Successfully updated'
+    'message' => 'Mise à jour réussie'
 ];
 
 const CUSTOMER_DELETE_200 = [
     'response_code' => 'customer_delete_200',
-    'message' => 'Successfully deleted information'
+    'message' => 'Informations supprimées avec succès'
 ];
+
 const EMPLOYEE_STORE_200 = [
     'response_code' => 'employee_store_200',
-    'message' => 'Successfully added'
+    'message' => 'Ajouté avec succès'
 ];
 
 const EMPLOYEE_UPDATE_200 = [
     'response_code' => 'employee_store_200',
-    'message' => 'Successfully updated'
+    'message' => 'Mise à jour réussie'
 ];
 
 const EMPLOYEE_DELETE_200 = [
     'response_code' => 'employee_delete_200',
-    'message' => 'Successfully deleted information'
+    'message' => 'Informations supprimées avec succès'
 ];
 
 const CUSTOMER_FUND_STORE_200 = [
     'response_code' => 'customer_fund_store_200',
-    'message' => 'Successfully added'
+    'message' => 'Ajouté avec succès'
 ];
 
-
-
-
 // Vehicle Brand
-
 const BRAND_CREATE_200 = [
     'response_code' => 'brand_create_200',
-    'message' => 'Brand successfully added'
+    'message' => 'Marque ajoutée avec succès'
 ];
 
 const BRAND_UPDATE_200 = [
     'response_code' => 'brand_update_200',
-    'message' => 'Brand successfully updated'
+    'message' => 'Marque mise à jour avec succès'
 ];
 
 const BRAND_DELETE_200 = [
     'response_code' => 'brand_update_200',
-    'message' => 'Brand successfully deleted'
+    'message' => 'Marque supprimée avec succès'
 ];
 
 // Vehicle Model
-
 const MODEL_CREATE_200 = [
     'response_code' => 'model_create_200',
-    'message' => 'Model successfully added'
+    'message' => 'Modèle ajouté avec succès'
 ];
 
 const MODEL_UPDATE_200 = [
     'response_code' => 'model_update_200',
-    'message' => 'Model successfully updated'
+    'message' => 'Modèle mis à jour avec succès'
 ];
 
 const MODEL_EXISTS_400 = [
     'response_code' => 'model_exists_400',
-    'message' => 'Model already exists!'
+    'message' => 'Le modèle existe déjà !'
 ];
 
 // Vehicle Category
-
 const CATEGORY_CREATE_200 = [
     'response_code' => 'category_create_200',
-    'message' => 'Category successfully added'
+    'message' => 'Catégorie ajoutée avec succès'
 ];
 
 const NO_ACTIVE_CATEGORY_IN_ZONE_404 = [
     'response_code' => 'no_active_category_in_zone_404',
-    'message' => 'There are no selected vehicle categories in your zone'
+    'message' => 'Il n\'y a pas de catégories de véhicules sélectionnées dans votre zone'
 ];
 
 const CATEGORY_UPDATE_200 = [
     'response_code' => 'category_update_200',
-    'message' => 'Category successfully updated'
+    'message' => 'Catégorie mise à jour avec succès'
 ];
 
 // Vehicle
-
 const VEHICLE_CREATE_200 = [
     'response_code' => 'vehicle_create_200',
-    'message' => 'Vehicle successfully added'
+    'message' => 'Véhicule ajouté avec succès'
 ];
 
 const VEHICLE_UPDATE_200 = [
     'response_code' => 'vehicle_update_200',
-    'message' => 'Vehicle successfully updated'
+    'message' => 'Véhicule mis à jour avec succès'
 ];
 
 const VEHICLE_DRIVER_EXISTS_403 = [
     'response_code' => 'vehicle_driver_exists_403',
-    'message' => 'You have already created a vehicle.'
+    'message' => 'Vous avez déjà créé un véhicule.'
 ];
 
 const LEVEL_CREATE_200 = [
     'response_code' => 'level_create_200',
-    'message' => 'Level successfully added'
+    'message' => 'Niveau ajouté avec succès'
 ];
 
 const LEVEL_UPDATE_200 = [
     'response_code' => 'level_update_200',
-    'message' => 'Level successfully updated'
+    'message' => 'Niveau mis à jour avec succès'
 ];
 
 const LEVEL_DELETE_200 = [
     'response_code' => 'level_delete_200',
-    'message' => 'Level successfully deleted'
+    'message' => 'Niveau supprimé avec succès'
 ];
 
 const LEVEL_CREATE_403 = [
     'response_code' => 'level_create_403',
-    'message' => 'First level sequence must be 1'
+    'message' => 'La séquence du premier niveau doit être 1'
 ];
 
 const LEVEL_403 = [
     'response_code' => 'level_403',
-    'message' => 'Create a level first'
+    'message' => 'Créez d\'abord un niveau'
 ];
 
 const LEVEL_DELETE_403 = [
     'response_code' => 'level_delete_403',
-    'message' => 'Level delete restricted when users assigned in this level'
+    'message' => 'Suppression du niveau restreinte lorsque des utilisateurs sont assignés à ce niveau'
 ];
-
 
 const BUSINESS_SETTING_UPDATE_200 = [
     'response_code' => 'business_setting_update_200',
-    'message' => 'Settings successfully updated'
+    'message' => 'Paramètres mis à jour avec succès'
 ];
 
 const SYSTEM_SETTING_UPDATE_200 = [
     'response_code' => 'system_setting_update_200',
-    'message' => 'Settings successfully updated'
+    'message' => 'Paramètres mis à jour avec succès'
 ];
-
 
 // Zone
-
 const ZONE_STORE_200 = [
     'response_code' => 'zone_store_200',
-    'message' => 'Zone successfully added'
+    'message' => 'Zone ajoutée avec succès'
 ];
+
 const ZONE_STORE_INSTRUCTION_200 = [
     'response_code' => 'zone_store_200',
-    'message' => 'Please setup the fares for this zone now'
+    'message' => 'Veuillez configurer les tarifs pour cette zone maintenant'
 ];
 
 const ZONE_UPDATE_200 = [
     'response_code' => 'zone_update_200',
-    'message' => 'Zone successfully updated'
+    'message' => 'Zone mise à jour avec succès'
 ];
 
 const ZONE_DESTROY_200 = [
     'response_code' => 'zone_destroy_200',
-    'message' => 'Zone successfully deleted'
+    'message' => 'Zone supprimée avec succès'
 ];
 
 const ZONE_404 = [
     'response_code' => 'zone_404',
-    'message' => 'Zone not found'
+    'message' => 'Zone non trouvée'
 ];
 
 const ZONE_RESOURCE_404 = [
     'response_code' => 'zone_404',
-    'message' => 'Operation service not available in this area'
+    'message' => 'Service d\'opération non disponible dans cette zone'
 ];
 
 const ROUTE_NOT_FOUND_404 = [
     'response_code' => 'route_404',
-    'message' => 'Route not found your selected pickup & destination address'
+    'message' => 'Route non trouvée pour votre adresse de départ et de destination sélectionnée'
 ];
 
 // Area
-
 const AREA_STORE_200 = [
     'response_code' => 'area_store_200',
-    'message' => 'Area successfully added'
+    'message' => 'Zone ajoutée avec succès'
 ];
 
 const AREA_UPDATE_200 = [
     'response_code' => 'area_update_200',
-    'message' => 'Area successfully updated'
+    'message' => 'Zone mise à jour avec succès'
 ];
 
 const AREA_DESTROY_200 = [
     'response_code' => 'area_destroy_200',
-    'message' => 'Area successfully deleted'
+    'message' => 'Zone supprimée avec succès'
 ];
 
 const AREA_404 = [
     'response_code' => 'area_404',
-    'message' => 'Area resource not found'
+    'message' => 'Ressource de la zone non trouvée'
 ];
 
 const AREA_RESOURCE_404 = [
     'response_code' => 'area_404',
-    'message' => 'No provider or service is available within this area'
+    'message' => 'Aucun fournisseur ou service disponible dans cette zone'
 ];
 
-
 // Pick Hour
-
 const PICK_HOUR_STORE_200 = [
     'response_code' => 'pick_hour_store_200',
-    'message' => 'Pick Hour successfully added'
+    'message' => 'Heure de pointe ajoutée avec succès'
 ];
 
 const PICK_HOUR_UPDATE_200 = [
     'response_code' => 'pick_hour_update_200',
-    'message' => 'Pick Hour successfully updated'
+    'message' => 'Heure de pointe mise à jour avec succès'
 ];
 
 const PICK_HOUR_DESTROY_200 = [
     'response_code' => 'pick_hour_destroy_200',
-    'message' => 'Pick Hour successfully deleted'
+    'message' => 'Heure de pointe supprimée avec succès'
 ];
 
 const PICK_HOUR_404 = [
     'response_code' => 'pick_hour_404',
-    'message' => 'Pick Hour resource not found'
+    'message' => 'Ressource de l\'heure de pointe non trouvée'
 ];
 
 const PICK_HOUR_RESOURCE_404 = [
     'response_code' => 'pick_hour_404',
-    'message' => 'No provider or service is available within this pick hour'
+    'message' => 'Aucun fournisseur ou service disponible pendant cette heure de pointe'
 ];
 
 const SOCIAL_MEDIA_LINK_STORE_200 = [
     'response_code' => 'social_media_link_store_200',
-    'message' => 'Social media link successfully added'
+    'message' => 'Lien de réseau social ajouté avec succès'
 ];
 
 const SOCIAL_MEDIA_LINK_UPDATE_200 = [
     'response_code' => 'social_media_link_update_200',
-    'message' => 'Social media link successfully updated'
+    'message' => 'Lien de réseau social mis à jour avec succès'
 ];
 
 const SOCIAL_MEDIA_LINK_DELETE_200 = [
     'response_code' => 'social_media_link_delete_200',
-    'message' => 'Social media link successfully deleted'
+    'message' => 'Lien de réseau social supprimé avec succès'
 ];
 
 const TESTIMONIAL_DELETE_200 = [
     'response_code' => 'testimonial_delete_200',
-    'message' => 'Testimonial successfully deleted'
+    'message' => 'Témoignage supprimé avec succès'
 ];
+
 const OUR_SOLUTION_DELETE_200 = [
     'response_code' => 'our_solution_delete_200',
-    'message' => 'Our Solution successfully deleted'
+    'message' => 'Notre solution supprimée avec succès'
 ];
 
 
@@ -544,421 +529,422 @@ const OUR_SOLUTION_DELETE_200 = [
 
 const BANNER_STORE_200 = [
     'response_code' => 'banner_store_200',
-    'message' => 'Banner successfully added'
+    'message' => 'Bannière ajoutée avec succès'
 ];
 
 const BANNER_UPDATE_200 = [
     'response_code' => 'banner_update_200',
-    'message' => 'Banner successfully updated'
+    'message' => 'Bannière mise à jour avec succès'
 ];
 
 const BANNER_DESTROY_200 = [
     'response_code' => 'banner_destroy_200',
-    'message' => 'Banner successfully deleted'
+    'message' => 'Bannière supprimée avec succès'
 ];
 
 const BANNER_404 = [
     'response_code' => 'banner_404',
-    'message' => 'Banner resource not found'
+    'message' => 'Ressource de la bannière non trouvée'
 ];
 
 const BANNER_RESOURCE_404 = [
     'response_code' => 'area_404',
-    'message' => 'No provider or service is available within this area'
+    'message' => 'Aucun fournisseur ou service n\'est disponible dans cette zone'
 ];
 
 // Milestone
 
 const MILESTONE_STORE_200 = [
     'response_code' => 'milestone_store_200',
-    'message' => 'Milestone successfully added'
+    'message' => 'Jalon ajouté avec succès'
 ];
 
 const MILESTONE_UPDATE_200 = [
     'response_code' => 'milestone_update_200',
-    'message' => 'Milestone successfully updated'
+    'message' => 'Jalon mis à jour avec succès'
 ];
 
 const MILESTONE_DESTROY_200 = [
     'response_code' => 'milestone_destroy_200',
-    'message' => 'Milestone successfully deleted'
+    'message' => 'Jalon supprimé avec succès'
 ];
 
 const MILESTONE_404 = [
     'response_code' => 'milestone_404',
-    'message' => 'Milestone resource not found'
+    'message' => 'Ressource du jalon non trouvée'
 ];
 
 const MILESTONE_RESOURCE_404 = [
     'response_code' => 'milestone_404',
-    'message' => 'No'
+    'message' => 'Aucun'
 ];
 
 // Discount
 
 const DISCOUNT_STORE_200 = [
     'response_code' => 'discount_store_200',
-    'message' => 'Discount successfully added'
+    'message' => 'Remise ajoutée avec succès'
 ];
 
 const DISCOUNT_UPDATE_200 = [
     'response_code' => 'discount_update_200',
-    'message' => 'Discount successfully updated'
+    'message' => 'Remise mise à jour avec succès'
 ];
 
 const DISCOUNT_DESTROY_200 = [
     'response_code' => 'discount_destroy_200',
-    'message' => 'Discount successfully deleted'
+    'message' => 'Remise supprimée avec succès'
 ];
 
 const DISCOUNT_404 = [
     'response_code' => 'discount_404',
-    'message' => 'Discount resource not found'
+    'message' => 'Ressource de la remise non trouvée'
 ];
 
 const DISCOUNT_RESOURCE_404 = [
     'response_code' => 'discount_404',
-    'message' => 'Discount is not found'
+    'message' => 'Remise non trouvée'
 ];
 
 // BONUS
 
 const BONUS_STORE_200 = [
     'response_code' => 'bonus_store_200',
-    'message' => 'Bonus successfully added'
+    'message' => 'Bonus ajouté avec succès'
 ];
 
 const BONUS_UPDATE_200 = [
     'response_code' => 'bonus_update_200',
-    'message' => 'Bonus successfully updated'
+    'message' => 'Bonus mis à jour avec succès'
 ];
 
 const BONUS_DESTROY_200 = [
     'response_code' => 'bonus_destroy_200',
-    'message' => 'Bonus successfully deleted'
+    'message' => 'Bonus supprimé avec succès'
 ];
 
 const BONUS_404 = [
     'response_code' => 'BONUS_404',
-    'message' => 'Bonus resource not found'
+    'message' => 'Ressource de bonus non trouvée'
 ];
 
 const BONUS_RESOURCE_404 = [
     'response_code' => 'area_404',
-    'message' => 'No provider or service is available within this area'
+    'message' => 'Aucun fournisseur ou service n\'est disponible dans cette zone'
 ];
-
 
 // COUPON
 
 const COUPON_STORE_200 = [
     'response_code' => 'coupon_store_200',
-    'message' => 'Coupon successfully added'
+    'message' => 'Coupon ajouté avec succès'
 ];
 
 const COUPON_UPDATE_200 = [
     'response_code' => 'coupon_update_200',
-    'message' => 'Coupon successfully updated'
+    'message' => 'Coupon mis à jour avec succès'
 ];
 
 const COUPON_DESTROY_200 = [
     'response_code' => 'coupon_destroy_200',
-    'message' => 'Coupon successfully deleted'
+    'message' => 'Coupon supprimé avec succès'
 ];
-
 
 const COUPON_USAGE_LIMIT_406 = [
     'response_code' => 'coupon_usage_limit_406',
-    'message' => 'Coupon usage limit over'
+    'message' => 'Limite d\'utilisation du coupon dépassée'
 ];
-
 
 // Configuration
 
 const CONFIGURATION_UPDATE_200 = [
     'response_code' => 'configuration_update_200',
-    'message' => 'Configuration successfully updated'
+    'message' => 'Configuration mise à jour avec succès'
 ];
 
 const LANDING_PAGE_UPDATE_200 = [
     'response_code' => 'landing_page_update_200',
-    'message' => 'Landing page successfully updated'
+    'message' => 'Page d\'accueil mise à jour avec succès'
 ];
 
+// Role
 
 const ROLE_STORE_200 = [
     'response_code' => 'role_store_200',
-    'message' => 'Role successfully added'
+    'message' => 'Rôle ajouté avec succès'
 ];
 
 const ROLE_UPDATE_200 = [
     'response_code' => 'role_update_200',
-    'message' => 'Role successfully updated'
+    'message' => 'Rôle mis à jour avec succès'
 ];
 
 const ROLE_DESTROY_200 = [
     'response_code' => 'role_destroy_200',
-    'message' => 'Role successfully deleted'
+    'message' => 'Rôle supprimé avec succès'
 ];
 
-//trip fare
+// Trip fare
 
 const TRIP_FARE_STORE_200 = [
     'response_code' => 'trip_fare_store_200',
-    'message' => 'Trip fare successfully added'
+    'message' => 'Tarif de trajet ajouté avec succès'
 ];
 
 const TRIP_FARE_UPDATE_200 = [
     'response_code' => 'trip_fare_update_200',
-    'message' => 'Trip fare successfully updated'
+    'message' => 'Tarif de trajet mis à jour avec succès'
 ];
 
 const TRIP_FARE_DESTROY_200 = [
     'response_code' => 'trip_fare_destroy_200',
-    'message' => 'Trip fare successfully deleted'
+    'message' => 'Tarif de trajet supprimé avec succès'
 ];
 
-//trip fare
+// Parcel fare
 
 const PARCEL_FARE_STORE_200 = [
     'response_code' => 'parcel_fare_store_200',
-    'message' => 'Parcel fare successfully added'
+    'message' => 'Tarif de colis ajouté avec succès'
 ];
 
 const PARCEL_FARE_UPDATE_200 = [
     'response_code' => 'parcel_fare_update_200',
-    'message' => 'Parcel fare successfully updated'
+    'message' => 'Tarif de colis mis à jour avec succès'
 ];
 
 const PARCEL_FARE_DESTROY_200 = [
     'response_code' => 'parcel_fare_destroy_200',
-    'message' => 'Parcel fare successfully deleted'
+    'message' => 'Tarif de colis supprimé avec succès'
 ];
+
 
 
 // Parcel Category
 
 const PARCEL_CATEGORY_UPDATE_200 = [
     'response_code' => 'parcel_category_update_200',
-    'message' => 'Parcel category successfully updated'
+    'message' => 'Catégorie de colis mise à jour avec succès'
 ];
-
 
 const PARCEL_CATEGORY_STORE_200 = [
     'response_code' => 'parcel_category_store_200',
-    'message' => 'Parcel category successfully added'
+    'message' => 'Catégorie de colis ajoutée avec succès'
 ];
 
 const PARCEL_CATEGORY_DESTROY_200 = [
     'response_code' => 'parcel_category_destroy_200',
-    'message' => 'Parcel category successfully deleted'
+    'message' => 'Catégorie de colis supprimée avec succès'
 ];
-
 
 // Parcel Weight
 
 const PARCEL_WEIGHT_UPDATE_200 = [
     'response_code' => 'parcel_weight_update_200',
-    'message' => 'Parcel weight successfully updated'
+    'message' => 'Poids du colis mis à jour avec succès'
 ];
-
 
 const PARCEL_WEIGHT_STORE_200 = [
     'response_code' => 'parcel_weight_store_200',
-    'message' => 'Parcel weight successfully added'
+    'message' => 'Poids du colis ajouté avec succès'
 ];
 
 const PARCEL_WEIGHT_EXISTS_403 = [
     'response_code' => 'parcel_weight_exists_403',
-    'message' => 'Parcel weight overlap'
+    'message' => 'Chevauchement du poids du colis'
 ];
+
 const PARCEL_WEIGHT_DESTROY_200 = [
     'response_code' => 'parcel_weight_destroy_200',
-    'message' => 'Parcel weight successfully deleted'
+    'message' => 'Poids du colis supprimé avec succès'
 ];
 
 const PARCEL_WEIGHT_404 = [
     'response_code' => 'parcel_weight_404',
-    'message' => 'Setup parcel weight first'
+    'message' => 'Définissez d\'abord le poids du colis'
 ];
 
-
-//TRIP
+// TRIP
 
 const TRIP_REQUEST_STORE_200 = [
     'response_code' => 'trip_request_store_200',
-    'message' => 'Trip request successfully placed'
+    'message' => 'Demande de voyage placée avec succès'
 ];
 
 const TRIP_REQUEST_DELETE_200 = [
     'response_code' => 'trip_request_delete_200',
-    'message' => 'Trip request deleted successfully'
+    'message' => 'Demande de voyage supprimée avec succès'
 ];
 
 const TRIP_REQUEST_DRIVER_403 = [
     'response_code' => 'trip_request_driver_403',
-    'message' => 'Driver already assigned to this trip'
+    'message' => 'Conducteur déjà assigné à ce voyage'
 ];
 
 const TRIP_REQUEST_404 = [
     'response_code' => 'trip_request_403',
-    'message' => 'Trip request not found'
+    'message' => 'Demande de voyage non trouvée'
 ];
 
 const TRIP_STATUS_NOT_COMPLETED_200 = [
     'response_code' => 'trip_status_200',
-    'message' => 'Trip yet not completed'
+    'message' => 'Voyage non encore terminé'
 ];
 
 const TRIP_STATUS_COMPLETED_403 = [
     'response_code' => 'trip_status_200',
-    'message' => 'Trip already completed'
+    'message' => 'Voyage déjà terminé'
 ];
 
 const TRIP_STATUS_CANCELLED_403 = [
     'response_code' => 'trip_status_200',
-    'message' => 'Trip already cancelled'
+    'message' => 'Voyage déjà annulé'
 ];
 
 const REVIEW_403 = [
     'response_code' => 'review_409',
-    'message' => 'Review already submitted'
+    'message' => 'Avis déjà soumis'
 ];
 
 const REVIEW_SUBMIT_403 = [
     'response_code' => 'review_submit_409',
-    'message' => 'Review submission is turned off'
+    'message' => 'La soumission des avis est désactivée'
 ];
 
 const REVIEW_404 = [
     'response_code' => 'review_404',
-    'message' => 'Review not found'
-];
-const LANGUAGE_UPDATE_FAIL_200 = [
-    'response_code' => 'language_status_update_fail_200',
-    'message' => 'Default language status can not be changed or deleted'
+    'message' => 'Avis non trouvé'
 ];
 
-// otp
+const LANGUAGE_UPDATE_FAIL_200 = [
+    'response_code' => 'language_status_update_fail_200',
+    'message' => 'Le statut de la langue par défaut ne peut pas être modifié ou supprimé'
+];
+
+// OTP
 
 const OTP_MISMATCH_404 = [
     'response_code' => 'otp_mismatch_404',
-    'message' => 'OTP is not matched'
+    'message' => 'Le code OTP ne correspond pas'
 ];
 
-//BID
+// BID
 
 const BIDDING_LIMIT_429 = [
     'response_code' => 'bidding_limit_429',
-    'message' => 'Bidding limit for this trip request exceeded'
+    'message' => 'Limite de soumission pour cette demande de voyage dépassée'
 ];
 
 const RAISING_BID_FARE_403 = [
     'response_code' => 'raising_bid_fare_403',
-    'message' => 'Bid fare can not be same or less than initial bid fare'
+    'message' => 'Le tarif de l\'offre ne peut pas être identique ou inférieur au tarif de l\'offre initiale'
 ];
 
 const BIDDING_ACTION_200 = [
     'response_code' => 'bidding_action_200',
-    'message' => 'Bidding action successfully updated'
+    'message' => 'Action de soumission mise à jour avec succès'
 ];
 
 const BIDDING_SUBMITTED_403 = [
     'response_code' => 'bidding_submitted_403',
-    'message' => 'Bidding already submitted'
+    'message' => 'Soumission déjà effectuée'
 ];
 
 const MAXIMUM_INTERMEDIATE_POINTS_403 = [
     'response_code' => 'maximum_intermediate_points_403',
-    'message' => 'More intermediate points can not be set'
+    'message' => 'Plus de points intermédiaires ne peuvent pas être définis'
 ];
 
 const COUPON_AREA_NOT_VALID_403 = [
     'response_code' => 'coupon_area_not_valid_403',
-    'message' => 'Coupon code not belongs to your current area'
+    'message' => 'Le code du coupon n\'appartient pas à votre zone actuelle'
 ];
 
 const COUPON_VEHICLE_CATEGORY_NOT_VALID_403 = [
     'response_code' => 'coupon_vehicle_category_not_valid_403',
-    'message' => 'Vehicle category not found for this coupon'
+    'message' => 'Catégorie de véhicule non trouvée pour ce coupon'
 ];
 
 const USER_LAST_LOCATION_NOT_AVAILABLE_404 = [
     'response_code' => 'user_last_location_not_available_404',
-    'message' => 'User Last Location Not Available'
+    'message' => 'Dernière position de l\'utilisateur non disponible'
 ];
 
 const INCOMPLETE_RIDE_403 = [
     'response_code' => 'incomplete_ride_403',
-    'message' => 'Please complete previous ride first'
+    'message' => 'Veuillez terminer le trajet précédent d\'abord'
 ];
 
 const DRIVER_UNAVAILABLE_403 = [
     'response_code' => 'driver_unavailable_403',
-    'message' => 'Please change your offline status'
+    'message' => 'Veuillez changer votre statut hors ligne'
 ];
 
 const CHAT_UNAVAILABLE_403 = [
     'response_code' => 'chat_unavailable_403',
-    'message' => 'Chat available only during active ride'
-];
-const PARCEL_WEIGHT_400 = [
-    'response_code' => 'parcel_weight_400',
-    'message' => 'Parcel weight is not acceptable'
+    'message' => 'Le chat est disponible uniquement pendant un trajet actif'
 ];
 
-//Wallet Errors
+const PARCEL_WEIGHT_400 = [
+    'response_code' => 'parcel_weight_400',
+    'message' => 'Le poids du colis n\'est pas acceptable'
+];
+
+// Erreurs de portefeuille
 const INSUFFICIENT_FUND_403 = [
     'response_code' => 'insufficient_fund_403',
-    'message' => 'You have insufficient balance on wallet'
+    'message' => 'Votre solde de portefeuille est insuffisant'
 ];
+
 const INSUFFICIENT_POINTS_403 = [
     'response_code' => 'insufficient_points_403',
-    'message' => 'You have insufficient loyalty points'
+    'message' => 'Vous avez des points de fidélité insuffisants'
 ];
 
 const WITHDRAW_REQUEST_200 = [
     'response_code' => 'withdraw_request_200',
-    'message' => 'Withdraw request sent for admin approval'
+    'message' => 'Demande de retrait envoyée pour approbation par l\'administrateur'
 ];
 
 const DRIVER_REQUEST_ACCEPT_TIMEOUT_408 = [
     'response_code' => 'driver_request_accept_timeout_408',
-    'message' => 'The trip request has already been expired'
+    'message' => 'La demande de voyage a déjà expiré'
 ];
 
 const NEGATIVE_VALUE = [
-    'message' => 'Negative value is not acceptable'
+    'message' => 'La valeur négative n\'est pas acceptable'
 ];
+
 const MAX_VALUE = [
-    'message' => 'Max value can be greater than 10'
+    'message' => 'La valeur maximale peut être supérieure à 10'
 ];
 
 const COUPON_APPLIED_403 = [
     'response_code' => 'coupon_applied_403',
-    'message' => 'Coupon already applied on this ride'
+    'message' => 'Coupon déjà appliqué sur ce trajet'
 ];
+
 const COUPON_APPLIED_200 = [
     'response_code' => 'coupon_applied_200',
-    'message' => 'Coupon applied successfully'
+    'message' => 'Coupon appliqué avec succès'
 ];
 
 const COUPON_REMOVED_200 = [
     'response_code' => 'coupon_removed_200',
-    'message' => 'Coupon removed successfully'
+    'message' => 'Coupon retiré avec succès'
 ];
 
 const SELF_REGISTRATION_400 = [
     'response_code' => 'self_registration_400',
-    'message' => 'Self registration is turned off. contact admin for registration'
+    'message' => 'L\'auto-inscription est désactivée. Contactez l\'administrateur pour l\'inscription'
 ];
 
 const LAST_LOCATION_404 = [
     'response_code' => 'last_location_404',
-    'message' => 'User last location not found'
+    'message' => 'Dernière position de l\'utilisateur non trouvée'
 ];
 
 const VEHICLE_CATEGORY_404 = [
     'response_code' => 'vehicle_category_404',
-    'message' => 'No vehicle category found. Please activate or create new vehicle category'
+    'message' => 'Aucune catégorie de véhicule trouvée. Veuillez activer ou créer une nouvelle catégorie de véhicule'
 ];
