@@ -617,8 +617,8 @@ class TripRequestController extends Controller
 
             return response()->json(responseFormatter(constant: DEFAULT_200, content: ''));
         }
-//        $locations = new Point($location->latitude, $location->longitude);
-//        $locations = new Point($location->longitude, $location->latitude);
+       $locations = new Point($location->latitude, $location->longitude);
+        $locations = new Point($location->longitude, $location->latitude);
         $pending_rides = $this->trip->getPendingRides(attributes: [
             'vehicle_category_id' => $user->vehicle->category_id,
             'driver_locations' => $location,
