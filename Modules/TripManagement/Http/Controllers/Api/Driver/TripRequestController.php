@@ -580,149 +580,76 @@ class TripRequestController extends Controller
  * @param Request $request
  * @return JsonResponse
  */
-public function pendingRideList(Request $request): JsonResponse
-{
-    $validator = Validator::make($request->all(), [
-        'limit' => 'required|numeric',
-        'offset' => 'required|numeric',
-    ]);
-    if ($validator->fails()) {
-        return response()->json(responseFormatter(DEFAULT_400, errorProcessor($validator)), 403);
-    }
 
-    if (empty($request->header('zoneId'))) {
-        return response()->json(responseFormatter(ZONE_404));
-    }
-
-    $user = auth('api')->user();
-    if (!$user) {
-        return response()->json(responseFormatter(DEFAULT_401), 401);
-    }
-
-    if ($user->driverDetails->is_online != 1) {
-        return response()->json(responseFormatter(DRIVER_UNAVAILABLE_403), 403);
-    }
-
-    if ($user->vehicle && $user->vehicle->is_active == 0) {
-        return response()->json(responseFormatter(VEHICLE_CATEGORY_404, []), 403);
-    }
-
-    if ($user->driverDetails->availability_status == 'on_trip') {
-        return response()->json(responseFormatter(DEFAULT_200));
-    }
-
-    $search_radius = (double)get_cache('search_radius') ?? 5;
-    $location = $this->lastLocation->getBy('user_id', $user->id);
-
-    if (!$location) {
-        return response()->json(responseFormatter(DEFAULT_200, 'No location found'));
-    }
-
-    if (!$user->vehicle) {
-        return response()->json(responseFormatter(DEFAULT_200, 'No vehicle found'));
-    }
-
-    // Log de vérification
-    Log::info("User: ", array($user));
-    Log::info("Location: ", $location->toArray());
-
-    $pending_rides = $this->trip->getPendingRides([
-        'vehicle_category_id' => $user->vehicle->category_id,
-        'driver_locations' => $location,
-        'distance' => $search_radius * 1000,
-        'zone_id' => $request->header('zoneId'),
-        'relations' => ['customer', 'ignoredRequests', 'time', 'fee', 'fare_biddings'],
-        'withAvgRelation' => 'customerReceivedReviews',
-        'withAvgColumn' => 'rating',
-        'limit' => $request->limit,
-        'offset' => $request->offset
-    ]);
-
-    if ($pending_rides->isEmpty()) {
-        // Log des résultats vides
-        Log::info("No pending rides found for driver_id: " . $user->id);
-    } else {
-        // Log des résultats trouvés
-        Log::info("Pending rides found: ", $pending_rides->toArray());
-    }
-
-    $trips = TripRequestResource::collection($pending_rides);
-
-    return response()->json(responseFormatter(DEFAULT_200, $trips, $request->limit, $request->offset));
-}
-
-
-    /**
-     * @param Request $request
-     * @return JsonResponse
-     */
-    public function lastRideDetails(Request $request)
+    public function pendingRideList(Request $request): JsonResponse
     {
         $validator = Validator::make($request->all(), [
-            'status' => 'required|in:ongoing,last_trip',
-            'trip_type' => 'required|in:ride_request,parcel',
-
+            'limit' => 'required|numeric',
+            'offset' => 'required|numeric',
         ]);
         if ($validator->fails()) {
-
-            return response()->json(responseFormatter(constant: DEFAULT_400, errors: errorProcessor($validator)), 403);
+            return response()->json(responseFormatter(DEFAULT_400, errorProcessor($validator)), 403);
         }
 
-        $trip = $this->trip->getBy(column: 'driver_id', value: auth()->id(), attributes: ['latest' => true, 'relations' => 'fee', 'column_name' => 'type', 'column_value' => $request->trip_type ?? 'ride_request']);
-        if (!$trip) {
-            return response()->json(responseFormatter(constant: TRIP_REQUEST_404, content: $trip));
+        if (empty($request->header('zoneId'))) {
+            return response()->json(responseFormatter(ZONE_404));
         }
 
-        $data = [];
-        $data[] = TripRequestResource::make($trip->append('distance_wise_fare'));
+        $user = auth('api')->user();
+        if (!$user) {
+            return response()->json(responseFormatter(DEFAULT_401), 401);
+        }
 
-        return response()->json(responseFormatter(constant: DEFAULT_200, content: $data));
-    }
+        if ($user->driverDetails->is_online != 1) {
+            return response()->json(responseFormatter(DRIVER_UNAVAILABLE_403), 403);
+        }
 
-    /**
-     * @param Request $request
-     * @return JsonResponse
-     */
-    public function rideWaiting(Request $request)
-    {
-        $validator = Validator::make($request->all(), [
-            'trip_request_id' => 'required',
+        if ($user->vehicle && $user->vehicle->is_active == 0) {
+            return response()->json(responseFormatter(VEHICLE_CATEGORY_404, []), 403);
+        }
+
+        if ($user->driverDetails->availability_status == 'on_trip') {
+            return response()->json(responseFormatter(DEFAULT_200));
+        }
+
+        $search_radius = (double)get_cache('search_radius') ?? 5;
+        $location = $this->lastLocation->getBy('user_id', $user->id);
+
+        if (!$location) {
+            return response()->json(responseFormatter(DEFAULT_200, 'No location found'));
+        }
+
+        if (!$user->vehicle) {
+            return response()->json(responseFormatter(DEFAULT_200, 'No vehicle found'));
+        }
+
+        // Log de vérification
+       // Log::info("User: ", $user->toArray());
+        Log::info("Location: ", $location->toArray());
+
+        $pending_rides = $this->trip->getPendingRides([
+            'vehicle_category_id' => $user->vehicle->category_id,
+            'driver_locations' => $location,
+            'distance' => $search_radius * 1000,
+            'zone_id' => $request->header('zoneId'),
+            'relations' => ['customer', 'ignoredRequests', 'time', 'fee', 'fare_biddings'],
+            'withAvgRelation' => 'customerReceivedReviews',
+            'withAvgColumn' => 'rating',
+            'limit' => $request->limit,
+            'offset' => $request->offset
         ]);
-        if ($validator->fails()) {
 
-            return response()->json(responseFormatter(constant: DEFAULT_400, errors: errorProcessor($validator)), 403);
-        }
-
-        $time = $this->time->getBy(column: 'trip_request_id', value: $request->trip_request_id);
-        $trip = $this->trip->getBy(column: 'id', value: $request->trip_request_id, attributes: ['relations' => ['customer']]);
-
-        if (!$time) {
-
-            return response()->json(responseFormatter(TRIP_REQUEST_404), 403);
-        }
-        if ($trip->is_paused == 0) {
-            $trip->is_paused = 1;
+        if ($pending_rides->isEmpty()) {
+            // Log des résultats vides
+            Log::info("No pending rides found for driver_id: " . $user->id);
         } else {
-            $trip->is_paused = 0;
-            $idle_time = Carbon::parse($time->idle_timestamp)->diffInMinutes(now());
-            $time->idle_time += $idle_time;
+            // Log des résultats trouvés
+            Log::info("Pending rides found: ", $pending_rides->toArray());
         }
-        $time->idle_timestamp = now();
-        $time->save();
-        $trip->save();
 
-        $push = getNotification('trip_' . $request->waiting_status);
-        sendDeviceNotification(
-            fcm_token: $trip->customer->fcm_token,
-            title: translate($push['title']),
-            description: translate($push['description']),
-            ride_request_id: $trip->id,
-            type: $trip->type,
-            action: 'trip_waited_message',
-            user_id: $trip->customer->id
-        );
+        $trips = TripRequestResource::collection($pending_rides);
 
-        return response()->json(responseFormatter(DEFAULT_UPDATE_200));
+        return response()->json(responseFormatter(DEFAULT_200, $trips, $request->limit, $request->offset));
     }
 
     /**
