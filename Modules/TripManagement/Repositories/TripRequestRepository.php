@@ -291,46 +291,25 @@ class TripRequestRepository implements TripRequestInterfaces
      */
     public function getPendingRides($attributes): mixed
     {
-        // Démarrer la requête sur le modèle Trip
+        $distance = $attributes['distance'];
+        $location = $attributes['driver_locations'];
+        $column = 'pickup_coordinates';
+
         return $this->trip->query()
-            // Ajouter des relations si spécifiées
-            ->when($attributes['relations'] ?? null, function ($query) use ($attributes) {
-                $query->with($attributes['relations']);
-            })
-            // Ajouter la relation fare_biddings avec une condition
+            ->when($attributes['relations'] ?? null, fn($query) => $query->with($attributes['relations']))
             ->with([
-                'fare_biddings' => function ($query) {
-                    $query->where('driver_id', auth()->id());
-                },
-                'coordinate' => function ($query) use ($attributes) {
-                    // Utiliser la méthode distanceSphere pour la distance
-                    $query->distanceSphere('pickup_coordinates', $attributes['driver_locations'], $attributes['distance']);
-                }
+                'fare_biddings' => fn($query) => $query->where('driver_id', auth()->id()),
+                'coordinate' => fn($query) => $query->whereRaw("ST_Distance_Sphere($column, POINT(?, ?)) < ?", [$location->longitude, $location->latitude, $distance])
             ])
-            // Ajouter une condition whereHas pour la relation coordinate
-            ->whereHas('coordinate', function ($query) use ($attributes) {
-                $query->distanceSphere('pickup_coordinates', $attributes['driver_locations'], $attributes['distance']);
-            })
-            // Ajouter une condition pour une relation avec moyenne si spécifiée
-            ->when($attributes['withAvgRelation'] ?? null, function ($query) use ($attributes) {
-                $query->withAvg($attributes['withAvgRelation'], $attributes['withAvgColumn']);
-            })
-            // Ajouter une condition pour exclure les demandes ignorées
-            ->whereDoesntHave('ignoredRequests', function ($query) {
-                $query->where('user_id', auth()->id());
-            })
-            // Ajouter une condition pour le véhicule catégorie
-            ->where(function ($query) use ($attributes) {
-                $query->where('vehicle_category_id', $attributes['vehicle_category_id'])
-                    ->orWhereNull('vehicle_category_id');
-            })
-            // Ajouter des conditions supplémentaires
+            ->whereHas('coordinate', fn($query) => $query->whereRaw("ST_Distance_Sphere($column, POINT(?, ?)) < ?", [$location->longitude, $location->latitude, $distance]))
+            ->when($attributes['withAvgRelation'] ?? null, fn($query) => $query->withAvg($attributes['withAvgRelation'], $attributes['withAvgColumn']))
+            ->whereDoesntHave('ignoredRequests', fn($query) => $query->where('user_id', auth()->id()))
+            ->where(fn($query) => $query->where('vehicle_category_id', $attributes['vehicle_category_id'])->orWhereNull('vehicle_category_id'))
             ->where(['zone_id' => $attributes['zone_id'], 'current_status' => PENDING])
-            // Ordonner les résultats par date de création décroissante
             ->orderBy('created_at', 'desc')
-            // Paginer les résultats
-            ->paginate($attributes['limit'], ['*'], 'page', $attributes['offset']);
+            ->paginate(perPage: $attributes['limit'], page: $attributes['offset']);
     }
+
 
     public function leaderBoard(array $attributes)
     {
