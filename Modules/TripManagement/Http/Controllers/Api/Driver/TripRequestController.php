@@ -632,6 +632,7 @@ class TripRequestController extends Controller
             'limit' => $request['limit'],
             'offset' => $request['offset']
         ]);
+        Log::info("Location: ", $pending_rides->toArray());
         $trips = TripRequestResource::collection($pending_rides);
 
         return response()->json(responseFormatter(constant: DEFAULT_200, content: $trips, limit: $request['limit'], offset: $request['offset']));
