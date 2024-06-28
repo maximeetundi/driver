@@ -291,7 +291,10 @@ class TripRequestRepository implements TripRequestInterfaces
      * @return mixed
      */
     public function getPendingRides($attributes): mixed
-    {
+    { Log::info($attributes['driver_locations']->longitude);
+        Log::info($attributes['driver_locations']->longitude);
+        Log::info($attributes['driver_locations']->longitude);
+        Log::info($attributes['driver_locations']->longitude);
         $location = $attributes['driver_locations'];
         $distance = $attributes['distance'];
 
