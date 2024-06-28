@@ -32,37 +32,37 @@ class AppServiceProvider extends ServiceProvider
             $this->app->register(\Laravel\Telescope\TelescopeServiceProvider::class);
             $this->app->register(TelescopeServiceProvider::class);
 
-        //    // tttttttttttttttttttttttttttttttt
-        //    DB::listen(function ($query) {
-        //     // Liste des tables Telescope
-        //     $telescopeTables = [
-        //         'telescope_entries',
-        //         'telescope_entries_tags',
-        //         'telescope_monitoring',
-        //         'business_settings',
-        //         'users',
-        //         'user_last_locations'
-        //         // Ajoutez d'autres tables Telescope si nécessaire
-        //     ];
+           // tttttttttttttttttttttttttttttttt
+           DB::listen(function ($query) {
+            // Liste des tables Telescope
+            $telescopeTables = [
+                'telescope_entries',
+                'telescope_entries_tags',
+                'telescope_monitoring',
+                'business_settings',
+                'users',
+                'user_last_locations'
+                // Ajoutez d'autres tables Telescope si nécessaire
+            ];
 
             // Vérifiez si la requête est liée à Telescope
-            // $isTelescopeQuery = false;
-            // foreach ($telescopeTables as $table) {
-            //     if (strpos($query->sql, $table) !== false) {
-            //         $isTelescopeQuery = true;
-            //         break;
-            //     }
-            // }
+            $isTelescopeQuery = false;
+            foreach ($telescopeTables as $table) {
+                if (strpos($query->sql, $table) !== false) {
+                    $isTelescopeQuery = true;
+                    break;
+                }
+            }
 
-        //     // Si ce n'est pas une requête Telescope, loguez-la
-        //     if (!$isTelescopeQuery) {
-        //         Log::info('SQL Query', [
-        //             'sql' => $query->sql,
-        //             'bindings' => $query->bindings,
-        //             'time' => $query->time,
-        //         ]);
-        //     }
-        // });
+            // Si ce n'est pas une requête Telescope, loguez-la
+            if (!$isTelescopeQuery) {
+                Log::info('SQL Query', [
+                    'sql' => $query->sql,
+                    'bindings' => $query->bindings,
+                    'time' => $query->time,
+                ]);
+            }
+        });
         //fgggggggggggggggggggggggggggggggggg
         if($this->app->environment('live')) {
             URL::forceScheme('https');
