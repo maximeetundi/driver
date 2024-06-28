@@ -2,39 +2,38 @@
 
 namespace Modules\TripManagement\Http\Controllers\Api\Driver;
 
-use Exception;
-use Carbon\Carbon;
-use Carbon\CarbonPeriod;
-use Illuminate\Http\Request;
-use Illuminate\Http\JsonResponse;
-use Ramsey\Uuid\Nonstandard\Uuid;
-use Illuminate\Routing\Controller;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
-use App\Jobs\SendPushNotificationJob;
-use Illuminate\Support\Facades\Cache;
-use App\Events\DriverTripStartedEvent;
+use App\Events\AnotherDriverTripAcceptedEvent;
+use App\Events\CustomerTripCancelledEvent;
 use App\Events\DriverTripAcceptedEvent;
 use App\Events\DriverTripCancelledEvent;
 use App\Events\DriverTripCompletedEvent;
-use Illuminate\Support\Facades\Validator;
-use App\Events\CustomerTripCancelledEvent;
-use App\Events\AnotherDriverTripAcceptedEvent;
+use App\Events\DriverTripStartedEvent;
+use App\Jobs\SendPushNotificationJob;
+use Carbon\Carbon;
+use Carbon\CarbonPeriod;
+use Exception;
 use MatanYadaev\EloquentSpatial\Objects\Point;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 use Modules\ReviewModule\Interfaces\ReviewInterface;
-use Modules\TripManagement\Entities\TripRequestTime;
-use Modules\UserManagement\Lib\LevelHistoryManagerTrait;
 use Modules\TripManagement\Entities\TempTripNotification;
 use Modules\TripManagement\Entities\TripRequestCoordinate;
+use Modules\TripManagement\Entities\TripRequestTime;
 use Modules\TripManagement\Interfaces\FareBiddingInterface;
+use Modules\TripManagement\Interfaces\FareBiddingLogInterface;
+use Modules\TripManagement\Interfaces\RejectedDriverRequestInterface;
+use Modules\TripManagement\Interfaces\TempTripNotificationInterface;
 use Modules\TripManagement\Interfaces\TripRequestInterfaces;
+use Modules\TripManagement\Interfaces\TripRequestTimeInterface;
 use Modules\TripManagement\Transformers\TripRequestResource;
 use Modules\UserManagement\Interfaces\DriverDetailsInterface;
-use Modules\TripManagement\Interfaces\FareBiddingLogInterface;
-use Modules\TripManagement\Interfaces\TripRequestTimeInterface;
 use Modules\UserManagement\Interfaces\UserLastLocationInterface;
-use Modules\TripManagement\Interfaces\TempTripNotificationInterface;
-use Modules\TripManagement\Interfaces\RejectedDriverRequestInterface;
+use Modules\UserManagement\Lib\LevelHistoryManagerTrait;
+use Ramsey\Uuid\Nonstandard\Uuid;
 
 class TripRequestController extends Controller
 {
@@ -618,7 +617,6 @@ class TripRequestController extends Controller
 
             return response()->json(responseFormatter(constant: DEFAULT_200, content: ''));
         }
-         Log::info("Location: ", $location->toArray());
 //        $locations = new Point($location->latitude, $location->longitude);
 //        $locations = new Point($location->longitude, $location->latitude);
         $pending_rides = $this->trip->getPendingRides(attributes: [
@@ -632,7 +630,6 @@ class TripRequestController extends Controller
             'limit' => $request['limit'],
             'offset' => $request['offset']
         ]);
-        Log::info("Location: ", $pending_rides->toArray());
         $trips = TripRequestResource::collection($pending_rides);
 
         return response()->json(responseFormatter(constant: DEFAULT_200, content: $trips, limit: $request['limit'], offset: $request['offset']));
