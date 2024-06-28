@@ -303,10 +303,10 @@ class TripRequestRepository implements TripRequestInterfaces
 //             ->when($attributes['withAvgRelation'] ?? null,
 //                 fn($query) => $query->withAvg($attributes['withAvgRelation'], $attributes['withAvgColumn']))
 //             ->whereDoesntHave('ignoredRequests', fn($query) => $query->where('user_id', auth()->id()))
-//             ->where(fn($query) =>
-//                 $query->where('vehicle_category_id', $attributes['vehicle_category_id'])
-//                     ->orWhereNull('vehicle_category_id')
-//             )
+            ->where(fn($query) =>
+                $query->where('vehicle_category_id', $attributes['vehicle_category_id'])
+                    ->orWhereNull('vehicle_category_id')
+            )
             ->where(['zone_id' => $attributes['zone_id'], 'current_status' => PENDING,])
             ->orderBy('created_at', 'desc')
             ->paginate(perPage: $attributes['limit'], page: $attributes['offset']);
