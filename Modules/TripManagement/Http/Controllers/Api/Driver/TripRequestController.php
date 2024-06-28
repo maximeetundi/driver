@@ -623,7 +623,7 @@ public function pendingRideList(Request $request): JsonResponse
     }
 
     // Log de vérification
-    Log::info("User: ", $user);
+    Log::info("User: ", array($user));
     Log::info("Location: ", $location->toArray());
 
     $pending_rides = $this->trip->getPendingRides([
