@@ -17,6 +17,7 @@
         "laravel/passport": "^12.0",
         "laravel/reverb": "^1.0@beta",
         "laravel/sanctum": "^4.0",
+        "laravel/telescope": "^5.1",
         "laravel/tinker": "^2.9",
         "madnest/madzipper": "^1.4",
         "matanyadaev/laravel-eloquent-spatial": "*",
