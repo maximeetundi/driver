@@ -17,9 +17,9 @@ class AdminMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        //if (auth()->check() && (auth()->user()->user_type == 'admin-employee' || auth()->user()->user_type == 'super-admin')) {
+        if (auth()->check() && (auth()->user()->user_type == 'admin-employee' || auth()->user()->user_type == 'super-admin')) {
             return $next($request);
-       // }
+        }
         return redirect(route('admin.auth.login'));
     }
 }
