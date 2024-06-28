@@ -39,6 +39,8 @@ class AppServiceProvider extends ServiceProvider
                 'telescope_entries',
                 'telescope_entries_tags',
                 'telescope_monitoring',
+                'business_settings',
+                'users'
                 // Ajoutez d'autres tables Telescope si nécessaire
             ];
 
