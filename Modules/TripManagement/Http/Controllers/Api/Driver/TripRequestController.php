@@ -2,39 +2,38 @@
 
 namespace Modules\TripManagement\Http\Controllers\Api\Driver;
 
-use Exception;
-use Carbon\Carbon;
-use Carbon\CarbonPeriod;
-use Illuminate\Http\Request;
-use Illuminate\Http\JsonResponse;
-use Ramsey\Uuid\Nonstandard\Uuid;
-use Illuminate\Routing\Controller;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
-use App\Jobs\SendPushNotificationJob;
-use Illuminate\Support\Facades\Cache;
-use App\Events\DriverTripStartedEvent;
+use App\Events\AnotherDriverTripAcceptedEvent;
+use App\Events\CustomerTripCancelledEvent;
 use App\Events\DriverTripAcceptedEvent;
 use App\Events\DriverTripCancelledEvent;
 use App\Events\DriverTripCompletedEvent;
-use Illuminate\Support\Facades\Validator;
-use App\Events\CustomerTripCancelledEvent;
-use App\Events\AnotherDriverTripAcceptedEvent;
+use App\Events\DriverTripStartedEvent;
+use App\Jobs\SendPushNotificationJob;
+use Carbon\Carbon;
+use Carbon\CarbonPeriod;
+use Exception;
 use MatanYadaev\EloquentSpatial\Objects\Point;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 use Modules\ReviewModule\Interfaces\ReviewInterface;
-use Modules\TripManagement\Entities\TripRequestTime;
-use Modules\UserManagement\Lib\LevelHistoryManagerTrait;
 use Modules\TripManagement\Entities\TempTripNotification;
 use Modules\TripManagement\Entities\TripRequestCoordinate;
+use Modules\TripManagement\Entities\TripRequestTime;
 use Modules\TripManagement\Interfaces\FareBiddingInterface;
+use Modules\TripManagement\Interfaces\FareBiddingLogInterface;
+use Modules\TripManagement\Interfaces\RejectedDriverRequestInterface;
+use Modules\TripManagement\Interfaces\TempTripNotificationInterface;
 use Modules\TripManagement\Interfaces\TripRequestInterfaces;
+use Modules\TripManagement\Interfaces\TripRequestTimeInterface;
 use Modules\TripManagement\Transformers\TripRequestResource;
 use Modules\UserManagement\Interfaces\DriverDetailsInterface;
-use Modules\TripManagement\Interfaces\FareBiddingLogInterface;
-use Modules\TripManagement\Interfaces\TripRequestTimeInterface;
 use Modules\UserManagement\Interfaces\UserLastLocationInterface;
-use Modules\TripManagement\Interfaces\TempTripNotificationInterface;
-use Modules\TripManagement\Interfaces\RejectedDriverRequestInterface;
+use Modules\UserManagement\Lib\LevelHistoryManagerTrait;
+use Ramsey\Uuid\Nonstandard\Uuid;
 
 class TripRequestController extends Controller
 {
@@ -574,13 +573,13 @@ class TripRequestController extends Controller
         return response()->json(responseFormatter(DEFAULT_404), 403);
     }
 
-/**
- * Show driver pending trip request.
- *
- * @param Request $request
- * @return JsonResponse
- */
-
+    /**
+     * Show driver pending trip request.
+     *
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
     public function pendingRideList(Request $request): JsonResponse
     {
         $validator = Validator::make($request->all(), [
@@ -588,46 +587,39 @@ class TripRequestController extends Controller
             'offset' => 'required|numeric',
         ]);
         if ($validator->fails()) {
-            return response()->json(responseFormatter(DEFAULT_400, errorProcessor($validator)), 403);
-        }
 
+            return response()->json(responseFormatter(constant: DEFAULT_400, errors: errorProcessor($validator)), 403);
+        }
         if (empty($request->header('zoneId'))) {
+
             return response()->json(responseFormatter(ZONE_404));
         }
-
         $user = auth('api')->user();
-        if (!$user) {
-            return response()->json(responseFormatter(DEFAULT_401), 401);
-        }
-
         if ($user->driverDetails->is_online != 1) {
-            return response()->json(responseFormatter(DRIVER_UNAVAILABLE_403), 403);
-        }
 
-        if ($user->vehicle && $user->vehicle->is_active == 0) {
-            return response()->json(responseFormatter(VEHICLE_CATEGORY_404, []), 403);
+            return response()->json(responseFormatter(constant: DRIVER_UNAVAILABLE_403), 403);
+        }
+        if ($user?->vehicle?->is_active == 0) {
+            return response()->json(responseFormatter(constant: VEHICLE_CATEGORY_404, content: []), 403);
         }
 
         if ($user->driverDetails->availability_status == 'on_trip') {
+
             return response()->json(responseFormatter(DEFAULT_200));
         }
-
         $search_radius = (double)get_cache('search_radius') ?? 5;
-        $location = $this->lastLocation->getBy('user_id', $user->id);
-
+        $location = $this->lastLocation->getBy(column: 'user_id', value: $user->id);
         if (!$location) {
-            return response()->json(responseFormatter(DEFAULT_200, 'No location found'));
-        }
 
+            return response()->json(responseFormatter(constant: DEFAULT_200, content: ''));
+        }
         if (!$user->vehicle) {
-            return response()->json(responseFormatter(DEFAULT_200, 'No vehicle found'));
+
+            return response()->json(responseFormatter(constant: DEFAULT_200, content: ''));
         }
-
-        // Log de vérification
-       // Log::info("User: ", $user->toArray());
-        Log::info("Location: ", $location->toArray());
-
-        $pending_rides = $this->trip->getPendingRides([
+//        $locations = new Point($location->latitude, $location->longitude);
+//        $locations = new Point($location->longitude, $location->latitude);
+        $pending_rides = $this->trip->getPendingRides(attributes: [
             'vehicle_category_id' => $user->vehicle->category_id,
             'driver_locations' => $location,
             'distance' => $search_radius * 1000,
@@ -635,21 +627,85 @@ class TripRequestController extends Controller
             'relations' => ['customer', 'ignoredRequests', 'time', 'fee', 'fare_biddings'],
             'withAvgRelation' => 'customerReceivedReviews',
             'withAvgColumn' => 'rating',
-            'limit' => $request->limit,
-            'offset' => $request->offset
+            'limit' => $request['limit'],
+            'offset' => $request['offset']
         ]);
-
-        if ($pending_rides->isEmpty()) {
-            // Log des résultats vides
-            Log::info("No pending rides found for driver_id: " . $user->id);
-        } else {
-            // Log des résultats trouvés
-            Log::info("Pending rides found: ", $pending_rides->toArray());
-        }
-
         $trips = TripRequestResource::collection($pending_rides);
 
-        return response()->json(responseFormatter(DEFAULT_200, $trips, $request->limit, $request->offset));
+        return response()->json(responseFormatter(constant: DEFAULT_200, content: $trips, limit: $request['limit'], offset: $request['offset']));
+    }
+
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function lastRideDetails(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'status' => 'required|in:ongoing,last_trip',
+            'trip_type' => 'required|in:ride_request,parcel',
+
+        ]);
+        if ($validator->fails()) {
+
+            return response()->json(responseFormatter(constant: DEFAULT_400, errors: errorProcessor($validator)), 403);
+        }
+
+        $trip = $this->trip->getBy(column: 'driver_id', value: auth()->id(), attributes: ['latest' => true, 'relations' => 'fee', 'column_name' => 'type', 'column_value' => $request->trip_type ?? 'ride_request']);
+        if (!$trip) {
+            return response()->json(responseFormatter(constant: TRIP_REQUEST_404, content: $trip));
+        }
+
+        $data = [];
+        $data[] = TripRequestResource::make($trip->append('distance_wise_fare'));
+
+        return response()->json(responseFormatter(constant: DEFAULT_200, content: $data));
+    }
+
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function rideWaiting(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'trip_request_id' => 'required',
+        ]);
+        if ($validator->fails()) {
+
+            return response()->json(responseFormatter(constant: DEFAULT_400, errors: errorProcessor($validator)), 403);
+        }
+
+        $time = $this->time->getBy(column: 'trip_request_id', value: $request->trip_request_id);
+        $trip = $this->trip->getBy(column: 'id', value: $request->trip_request_id, attributes: ['relations' => ['customer']]);
+
+        if (!$time) {
+
+            return response()->json(responseFormatter(TRIP_REQUEST_404), 403);
+        }
+        if ($trip->is_paused == 0) {
+            $trip->is_paused = 1;
+        } else {
+            $trip->is_paused = 0;
+            $idle_time = Carbon::parse($time->idle_timestamp)->diffInMinutes(now());
+            $time->idle_time += $idle_time;
+        }
+        $time->idle_timestamp = now();
+        $time->save();
+        $trip->save();
+
+        $push = getNotification('trip_' . $request->waiting_status);
+        sendDeviceNotification(
+            fcm_token: $trip->customer->fcm_token,
+            title: translate($push['title']),
+            description: translate($push['description']),
+            ride_request_id: $trip->id,
+            type: $trip->type,
+            action: 'trip_waited_message',
+            user_id: $trip->customer->id
+        );
+
+        return response()->json(responseFormatter(DEFAULT_UPDATE_200));
     }
 
     /**
