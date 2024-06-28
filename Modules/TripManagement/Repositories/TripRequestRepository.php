@@ -298,11 +298,11 @@ class TripRequestRepository implements TripRequestInterfaces
 // //                'coordinate' => fn($query) => $query->whereRaw("ST_Distance_Sphere($column, POINT($location->longitude, $location->latitude)) < $distance")
 //                 'coordinate' => fn($query) => $query->distanceSphere('pickup_coordinates', $attributes['driver_locations'], $attributes['distance'])
 //             ])
-//             ->whereHas('coordinate',
-//                 fn($query) => $query->distanceSphere('pickup_coordinates', $attributes['driver_locations'], $attributes['distance']))
-//             ->when($attributes['withAvgRelation'] ?? null,
-//                 fn($query) => $query->withAvg($attributes['withAvgRelation'], $attributes['withAvgColumn']))
-//             ->whereDoesntHave('ignoredRequests', fn($query) => $query->where('user_id', auth()->id()))
+            ->whereHas('coordinate',
+                fn($query) => $query->distanceSphere('pickup_coordinates', $attributes['driver_locations'], $attributes['distance']))
+            ->when($attributes['withAvgRelation'] ?? null,
+                fn($query) => $query->withAvg($attributes['withAvgRelation'], $attributes['withAvgColumn']))
+            ->whereDoesntHave('ignoredRequests', fn($query) => $query->where('user_id', auth()->id()))
             ->where(fn($query) =>
                 $query->where('vehicle_category_id', $attributes['vehicle_category_id'])
                     ->orWhereNull('vehicle_category_id')
