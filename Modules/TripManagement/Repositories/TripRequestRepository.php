@@ -3,13 +3,12 @@
 namespace Modules\TripManagement\Repositories;
 
 use Carbon\Carbon;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Database\Eloquent\Model;
+use MatanYadaev\EloquentSpatial\Objects\Point;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
-use MatanYadaev\EloquentSpatial\Objects\Point;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\DB;
 use Modules\TripManagement\Entities\TripRequest;
 use Modules\TripManagement\Interfaces\TripRequestInterfaces;
 
@@ -291,22 +290,16 @@ class TripRequestRepository implements TripRequestInterfaces
      * @return mixed
      */
     public function getPendingRides($attributes): mixed
-    { Log::info($attributes['driver_locations']->longitude);
-        Log::info($attributes['driver_locations']->longitude);
-        Log::info($attributes['driver_locations']->longitude);
-        Log::info($attributes['driver_locations']->longitude);
-        $location = $attributes['driver_locations'];
-        $distance = $attributes['distance'];
-
+    {
         return $this->trip->query()
             ->when($attributes['relations'] ?? null, fn($query) => $query->with($attributes['relations']))
             ->with([
                 'fare_biddings' => fn($query) => $query->where('driver_id', auth()->id()),
-               'coordinate' => fn($query) => $query->whereRaw("ST_Distance_Sphere(pickup_coordinates, POINT($location->longitude, $location->latitude)) < $distance")
-               // 'coordinate' => fn($query) => $query->distanceSphere('pickup_coordinates', $attributes['driver_locations'], $attributes['distance'])
+//                'coordinate' => fn($query) => $query->whereRaw("ST_Distance_Sphere($column, POINT($location->longitude, $location->latitude)) < $distance")
+                'coordinate' => fn($query) => $query->distanceSphere('pickup_coordinates', $attributes['driver_locations'], $attributes['distance'])
             ])
             ->whereHas('coordinate',
-                fn($query) => $query->whereRaw("ST_Distance_Sphere(pickup_coordinates, POINT($location->longitude, $location->latitude)) < $distance"))
+                fn($query) => $query->distanceSphere('pickup_coordinates', $attributes['driver_locations'], $attributes['distance']))
             ->when($attributes['withAvgRelation'] ?? null,
                 fn($query) => $query->withAvg($attributes['withAvgRelation'], $attributes['withAvgColumn']))
             ->whereDoesntHave('ignoredRequests', fn($query) => $query->where('user_id', auth()->id()))
