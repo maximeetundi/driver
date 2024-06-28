@@ -608,7 +608,7 @@ class TripRequestController extends Controller
 
             return response()->json(responseFormatter(DEFAULT_200));
         }
-        $search_radius = 5;
+        $search_radius = (double)get_cache('search_radius') ?? 5;
         $location = $this->lastLocation->getBy(column: 'user_id', value: $user->id);
         if (!$location) {
 
@@ -619,7 +619,7 @@ class TripRequestController extends Controller
             return response()->json(responseFormatter(constant: DEFAULT_200, content: ''));
         }
          Log::info("Location: ", $location->toArray());
-        //  $locations = new Point($location->latitude, $location->longitude);
+//        $locations = new Point($location->latitude, $location->longitude);
 //        $locations = new Point($location->longitude, $location->latitude);
         $pending_rides = $this->trip->getPendingRides(attributes: [
             'vehicle_category_id' => $user->vehicle->category_id,
