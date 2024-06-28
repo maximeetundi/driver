@@ -299,9 +299,9 @@ class TripRequestRepository implements TripRequestInterfaces
             ->when($attributes['relations'] ?? null, fn($query) => $query->with($attributes['relations']))
             ->with([
                 'fare_biddings' => fn($query) => $query->where('driver_id', auth()->id()),
-                'coordinate' => fn($query) => $query->whereRaw("ST_DistanceSphere($column, ST_GeomFromText('POINT(? ?)')) < ?", [$location->longitude, $location->latitude, $distance])
+                'coordinate' => fn($query) => $query->whereRaw("ST_Distance($column, ST_GeomFromText('POINT(? ?)')) < ?", [$location->longitude, $location->latitude, $distance])
             ])
-            ->whereHas('coordinate', fn($query) => $query->whereRaw("ST_DistanceSphere($column, ST_GeomFromText('POINT(? ?)')) < ?", [$location->longitude, $location->latitude, $distance]))
+            ->whereHas('coordinate', fn($query) => $query->whereRaw("ST_Distance($column, ST_GeomFromText('POINT(? ?)')) < ?", [$location->longitude, $location->latitude, $distance]))
             ->when($attributes['withAvgRelation'] ?? null, fn($query) => $query->withAvg($attributes['withAvgRelation'], $attributes['withAvgColumn']))
             ->whereDoesntHave('ignoredRequests', fn($query) => $query->where('user_id', auth()->id()))
             ->where(fn($query) => $query->where('vehicle_category_id', $attributes['vehicle_category_id'])->orWhereNull('vehicle_category_id'))
@@ -309,6 +309,7 @@ class TripRequestRepository implements TripRequestInterfaces
             ->orderBy('created_at', 'desc')
             ->paginate(perPage: $attributes['limit'], page: $attributes['offset']);
     }
+
 
 
     public function leaderBoard(array $attributes)
